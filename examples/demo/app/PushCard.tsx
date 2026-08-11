@@ -43,26 +43,35 @@ export function PushCard() {
   const disabled = !isSupported || permission === 'denied' || busy;
 
   return (
-    <div className="card">
-      <header className="header">
-        <span className="badge">crosshooks</span>
-        <h2 className="hook-name">
-          <code>usePushNotifications</code>
+    <div className="w-full max-w-[520px] rounded-[18px] border border-[#263050] bg-[#141a2e] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+      <header className="mb-6">
+        <span className="mb-3.5 inline-block rounded-full border border-[#263050] px-2.5 py-1 text-xs uppercase tracking-[0.08em] text-[#6ea8fe]">
+          crosshooks
+        </span>
+        <h2 className="mb-2.5 text-[26px] font-bold">
+          <code className="font-mono">usePushNotifications</code>
         </h2>
-        <p className="tagline">
+        <p className="leading-6 text-[#93a0c4]">
           One cross-platform hook for the Web Push lifecycle — permission, subscribe,
           unsubscribe. A safe no-op on React Native.
         </p>
       </header>
 
-      <section className="state" aria-label="usePushNotifications state">
+      <section
+        className="mb-6 flex flex-col gap-2"
+        aria-label="usePushNotifications state"
+      >
         <StateRow label="isSupported" value={isSupported} />
         <StateRow label="permission" value={permission} />
         <StateRow label="isSubscribed" value={isSubscribed} />
       </section>
 
-      <section className="actions">
-        <button className="install" onClick={toggle} disabled={disabled}>
+      <section className="flex flex-col gap-3">
+        <button
+          className="w-full cursor-pointer rounded-xl bg-[#6ea8fe] px-[18px] py-3.5 font-semibold text-[#06122b] transition-[transform,opacity] duration-200 enabled:hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-[0.45]"
+          onClick={toggle}
+          disabled={disabled}
+        >
           {busy
             ? 'Working…'
             : isSubscribed
@@ -71,21 +80,27 @@ export function PushCard() {
         </button>
 
         {isSubscribed && (
-          <button className="install" onClick={sendTestPush} disabled={busy}>
+          <button
+            className="w-full cursor-pointer rounded-xl bg-[#6ea8fe] px-[18px] py-3.5 font-semibold text-[#06122b] transition-[transform,opacity] duration-200 enabled:hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-[0.45]"
+            onClick={sendTestPush}
+            disabled={busy}
+          >
             {busy ? 'Working…' : 'Send test push'}
           </button>
         )}
 
         {subscription && (
-          <p className="outcome">
+          <p className="text-sm text-[#93a0c4]">
             Subscribed. Endpoint:
-            <code className="endpoint">{subscription.endpoint}</code>
+            <code className="mt-1.5 block break-all font-mono text-[11px] text-[#93a0c4]">
+              {subscription.endpoint}
+            </code>
           </p>
         )}
-        {error && <p className="outcome error">⚠ {error}</p>}
+        {error && <p className="text-sm text-[#fca5a5]">⚠ {error}</p>}
       </section>
 
-      <footer className="hint">
+      <footer className="mt-[22px] border-t border-[#263050] pt-[18px] text-sm leading-6 text-[#93a0c4] [&_p]:m-0">
         {permission === 'denied' ? (
           <p>Notifications are blocked for this site in your browser settings.</p>
         ) : !isSupported ? (
