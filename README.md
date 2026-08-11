@@ -4,7 +4,10 @@
 
 [![CI](https://github.com/zoharyAnd/crosshooks/actions/workflows/ci.yml/badge.svg)](https://github.com/zoharyAnd/crosshooks/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@zoharyandrianome/crosshooks.svg)](https://www.npmjs.com/package/@zoharyandrianome/crosshooks)
+[![live demo](https://img.shields.io/badge/demo-live-brightgreen)](https://crosshooks-demo.vercel.app)
 [![license](https://img.shields.io/npm/l/@zoharyandrianome/crosshooks.svg)](./LICENSE)
+
+**▶ [Try the live demo](https://crosshooks-demo.vercel.app)** — a real PWA install flow, powered by `usePWAInstallPrompt`.
 
 One hook API, every platform. `crosshooks` ships a single set of typed React
 hooks with **platform adapters** under the hood: web bundlers get the DOM
