@@ -1,6 +1,6 @@
 {
   "name": "crosshooks",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Cross-platform React hooks that work on both web and React Native — typed, tested, zero-config.",
   "keywords": [
     "react",
