@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { usePWAInstallPrompt } from 'crosshooks';
+import { usePWAInstallPrompt } from '@zoharyandrianome/crosshooks';
 
 export default function Home() {
   const { canInstall, isInstalled, isSupported, promptInstall } = usePWAInstallPrompt();

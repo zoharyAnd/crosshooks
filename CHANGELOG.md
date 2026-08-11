@@ -1,4 +1,4 @@
-# crosshooks
+# @zoharyandrianome/crosshooks
 
 ## 0.1.0
 

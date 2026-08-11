@@ -1,6 +1,9 @@
 {
-  "name": "crosshooks",
+  "name": "@zoharyandrianome/crosshooks",
   "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Cross-platform React hooks that work on both web and React Native — typed, tested, zero-config.",
   "keywords": [
     "react",

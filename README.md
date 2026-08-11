@@ -3,8 +3,8 @@
 > Cross-platform React hooks that work on both web and React Native — typed, tested, zero-config.
 
 [![CI](https://github.com/zoharyAnd/crosshooks/actions/workflows/ci.yml/badge.svg)](https://github.com/zoharyAnd/crosshooks/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/crosshooks.svg)](https://www.npmjs.com/package/crosshooks)
-[![license](https://img.shields.io/npm/l/crosshooks.svg)](./LICENSE)
+[![npm](https://img.shields.io/npm/v/@zoharyandrianome/crosshooks.svg)](https://www.npmjs.com/package/@zoharyandrianome/crosshooks)
+[![license](https://img.shields.io/npm/l/@zoharyandrianome/crosshooks.svg)](./LICENSE)
 
 One hook API, every platform. `crosshooks` ships a single set of typed React
 hooks with **platform adapters** under the hood: web bundlers get the DOM
@@ -15,8 +15,8 @@ identical across web and mobile.
 ## Install
 
 ```bash
-pnpm add crosshooks
-# or: npm install crosshooks / yarn add crosshooks
+pnpm add @zoharyandrianome/crosshooks
+# or: npm install @zoharyandrianome/crosshooks
 ```
 
 React 16.8+ is a peer dependency.
@@ -30,7 +30,7 @@ and a safe no-op on React Native, so the same install button just stays hidden
 on mobile.
 
 ```tsx
-import { usePWAInstallPrompt } from 'crosshooks';
+import { usePWAInstallPrompt } from '@zoharyandrianome/crosshooks';
 
 function InstallButton() {
   const { canInstall, isInstalled, promptInstall } = usePWAInstallPrompt();
