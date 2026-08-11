@@ -1,13 +1,16 @@
 import {
-  AuthorizationStatus,
   deleteToken,
   getMessaging,
   getToken,
-  hasPermission,
   registerDeviceForRemoteMessages,
-  requestPermission as requestFirebasePermission,
 } from '@react-native-firebase/messaging';
-import { PermissionsAndroid, Platform } from 'react-native';
+import { Platform } from 'react-native';
+import {
+  checkNotifications,
+  requestNotifications,
+  RESULTS,
+  type PermissionStatus,
+} from 'react-native-permissions';
 import type { PushPermission, PushProvider } from '../../usePushNotifications/types';
 
 /**
@@ -17,16 +20,26 @@ import type { PushPermission, PushProvider } from '../../usePushNotifications/ty
  */
 export type FirebasePushConfig = Record<string, never>;
 
-function toPermission(status: number): PushPermission {
-  if (
-    status === AuthorizationStatus.AUTHORIZED ||
-    status === AuthorizationStatus.PROVISIONAL ||
-    status === AuthorizationStatus.EPHEMERAL
-  ) {
-    return 'granted';
+/**
+ * Maps a `react-native-permissions` status to our tri-state permission. It
+ * handles iOS and Android (including the Android 13+ `POST_NOTIFICATIONS`
+ * runtime permission) uniformly, replacing Firebase's deprecated
+ * `hasPermission` / `requestPermission` / `AuthorizationStatus` APIs.
+ */
+function toPermission(status: PermissionStatus): PushPermission {
+  switch (status) {
+    // `LIMITED` covers iOS provisional/ephemeral authorization.
+    case RESULTS.GRANTED:
+    case RESULTS.LIMITED:
+      return 'granted';
+    // `BLOCKED` (and an unavailable feature) can't be prompted for again.
+    case RESULTS.BLOCKED:
+    case RESULTS.UNAVAILABLE:
+      return 'denied';
+    // `DENIED` means "not requested yet, but requestable".
+    default:
+      return 'default';
   }
-  if (status === AuthorizationStatus.DENIED) return 'denied';
-  return 'default';
 }
 
 /** Creates a Firebase Cloud Messaging adapter for iOS and Android. */
@@ -35,26 +48,13 @@ export function firebaseProvider(_config: FirebasePushConfig = {}): PushProvider
   let token: string | null = null;
 
   const getPermission = async (): Promise<PushPermission> => {
-    if (Platform.OS === 'android') {
-      if (Platform.Version < 33) return 'granted';
-      const permission = PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS;
-      if (!permission) return 'granted';
-      return (await PermissionsAndroid.check(permission))
-        ? 'granted'
-        : 'default';
-    }
-    return toPermission(await hasPermission(messaging));
+    const { status } = await checkNotifications();
+    return toPermission(status);
   };
 
   const requestPermission = async (): Promise<PushPermission> => {
-    if (Platform.OS === 'android') {
-      if (Platform.Version < 33) return 'granted';
-      const permission = PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS;
-      if (!permission) return 'granted';
-      const result = await PermissionsAndroid.request(permission);
-      return result === PermissionsAndroid.RESULTS.GRANTED ? 'granted' : 'denied';
-    }
-    return toPermission(await requestFirebasePermission(messaging));
+    const { status } = await requestNotifications(['alert', 'badge', 'sound']);
+    return toPermission(status);
   };
 
   const asSubscription = (value: string) => ({

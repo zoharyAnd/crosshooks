@@ -77,8 +77,14 @@ function NotificationsButton() {
           lang="bash"
           code={`pnpm add @zoharyandrianome/crosshooks \\
   @react-native-firebase/app \\
-  @react-native-firebase/messaging`}
+  @react-native-firebase/messaging \\
+  react-native-permissions`}
         />
+        <p>
+          <code className="font-mono">react-native-permissions</code> handles the
+          notification permission prompt on iOS and Android 13+. Follow its setup guide
+          to declare the notification permission in your native projects.
+        </p>
         <p>
           React Native configuration comes from native Firebase files, so the hook
           does not need Firebase environment variables.

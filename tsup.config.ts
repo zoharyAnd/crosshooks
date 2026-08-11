@@ -21,6 +21,7 @@ export default defineConfig({
     'firebase/messaging',
     '@react-native-firebase/app',
     '@react-native-firebase/messaging',
+    'react-native-permissions',
   ],
   outExtension({ format }) {
     return { js: format === 'cjs' ? '.cjs' : '.js' };
