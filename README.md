@@ -7,7 +7,7 @@
 [![live demo](https://img.shields.io/badge/demo-live-brightgreen)](https://crosshooks-demo.vercel.app)
 [![license](https://img.shields.io/npm/l/@zoharyandrianome/crosshooks.svg)](./LICENSE)
 
-**▶ [Try the live demo](https://crosshooks-demo.vercel.app)** — a real PWA install flow, powered by `usePWAInstallPrompt`.
+**▶ [Try the live demo](https://crosshooks-demo.vercel.app)** — `usePWAInstallPrompt` and `usePushNotifications` running live.
 
 One hook API, every platform. `crosshooks` ships a single set of typed React
 hooks with **platform adapters** under the hood: web bundlers get the DOM
@@ -63,6 +63,59 @@ function InstallButton() {
 | `isInstalled`   | `boolean`                    | The app is already running as an installed PWA.                                 |
 | `isSupported`   | `boolean`                    | `false` on React Native, during SSR, and where install prompts don't exist.     |
 | `promptInstall` | `() => Promise<{ outcome }>` | Shows the native prompt. `outcome` is `accepted` / `dismissed` / `unavailable`. |
+
+### `usePushNotifications`
+
+Drive the Web Push lifecycle — permission, subscription, and unsubscription —
+from one hook, and get a serializable subscription to send to your server. On
+React Native it's a safe no-op (native push rides on APNs/FCM via platform SDKs),
+so the same UI compiles everywhere.
+
+```tsx
+import { usePushNotifications } from '@zoharyandrianome/crosshooks';
+
+function NotificationsToggle() {
+  const { isSupported, isSubscribed, subscribe, unsubscribe } = usePushNotifications({
+    applicationServerKey: process.env.NEXT_PUBLIC_VAPID_KEY,
+  });
+
+  if (!isSupported) return null;
+
+  return (
+    <button
+      onClick={async () => {
+        if (isSubscribed) {
+          await unsubscribe();
+        } else {
+          const sub = await subscribe();
+          if (sub)
+            await fetch('/api/push/register', {
+              method: 'POST',
+              body: JSON.stringify(sub),
+            });
+        }
+      }}
+    >
+      {isSubscribed ? 'Disable notifications' : 'Enable notifications'}
+    </button>
+  );
+}
+```
+
+Requires an active service worker (for `PushManager`). Pass your VAPID public key
+as `applicationServerKey` — Chromium browsers require it to subscribe.
+
+#### Returns
+
+| Field               | Type                                        | Description                                                         |
+| ------------------- | ------------------------------------------- | ------------------------------------------------------------------- |
+| `isSupported`       | `boolean`                                   | `true` when Notification + Service Worker + PushManager exist.      |
+| `permission`        | `'default' \| 'granted' \| 'denied'`        | Current notification permission.                                    |
+| `subscription`      | `PushSubscriptionInfo \| null`              | Serializable subscription to send to your server, or `null`.        |
+| `isSubscribed`      | `boolean`                                   | Whether a subscription is active.                                   |
+| `requestPermission` | `() => Promise<PushPermission>`             | Prompts for permission and returns the result.                      |
+| `subscribe`         | `() => Promise<PushSubscriptionInfo\|null>` | Ensures permission, then subscribes. `null` if refused/unsupported. |
+| `unsubscribe`       | `() => Promise<boolean>`                    | Cancels the active subscription.                                    |
 
 ## How the cross-platform build works
 

@@ -1,7 +1,7 @@
 {
-  "name": "crosshooks — usePWAInstallPrompt demo",
+  "name": "crosshooks — live React hook demos",
   "short_name": "crosshooks",
-  "description": "Live demo of the usePWAInstallPrompt cross-platform React hook.",
+  "description": "Live demos of crosshooks cross-platform React hooks.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

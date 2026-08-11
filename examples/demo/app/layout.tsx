@@ -3,9 +3,9 @@ import { ServiceWorkerRegistrar } from './ServiceWorkerRegistrar';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'crosshooks — usePWAInstallPrompt demo',
+  title: 'crosshooks — live React hook demos',
   description:
-    'Live demo of usePWAInstallPrompt from crosshooks: the browser PWA install flow, one cross-platform hook.',
+    'Live demos of crosshooks: usePWAInstallPrompt and usePushNotifications — cross-platform React hooks for web and React Native.',
   manifest: '/manifest.webmanifest',
   appleWebApp: {
     capable: true,

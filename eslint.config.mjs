@@ -22,6 +22,16 @@ export default tseslint.config(
       // The two rules that matter most for a hooks library.
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+      // Honor the `_`-prefix convention for intentionally-unused args (e.g. an
+      // options param kept only for cross-platform API parity).
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
       // TypeScript's compiler handles undefined identifiers; the core rule
       // produces false positives on type-only references.
       'no-undef': 'off',

@@ -12,5 +12,19 @@
     "import": "{ usePWAInstallPrompt }",
     "ignore": ["react"],
     "limit": "150 B"
+  },
+  {
+    "name": "usePushNotifications (web, ESM)",
+    "path": "dist/index.js",
+    "import": "{ usePushNotifications }",
+    "ignore": ["react"],
+    "limit": "800 B"
+  },
+  {
+    "name": "usePushNotifications (native, ESM)",
+    "path": "dist/index.native.js",
+    "import": "{ usePushNotifications }",
+    "ignore": ["react"],
+    "limit": "200 B"
   }
 ]

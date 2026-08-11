@@ -44,7 +44,27 @@ body {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  padding: 24px;
+  padding: 40px 24px;
+}
+
+.stack {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .card {
@@ -73,12 +93,13 @@ body {
   margin-bottom: 14px;
 }
 
-h1 {
+.hook-name {
   margin: 0 0 10px;
-  font-size: 28px;
+  font-size: 26px;
+  font-weight: 700;
 }
 
-h1 code {
+.hook-name code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
@@ -124,6 +145,11 @@ h1 code {
   color: var(--false);
 }
 
+.pill-neutral {
+  background: rgba(110, 168, 254, 0.15);
+  color: var(--accent);
+}
+
 .actions {
   display: flex;
   flex-direction: column;
@@ -158,6 +184,19 @@ h1 code {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
+}
+
+.outcome.error {
+  color: #fca5a5;
+}
+
+.endpoint {
+  display: block;
+  margin-top: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  color: var(--muted);
+  word-break: break-all;
 }
 
 .hint {
