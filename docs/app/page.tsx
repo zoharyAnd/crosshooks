@@ -10,16 +10,13 @@ export default function GettingStarted() {
         </span>
         <h1 className="mb-3 text-3xl font-bold">Getting started</h1>
         <p className="leading-6 text-[#93a0c4]">
-          Install <code className="font-mono">crosshooks</code>, choose a push
-          transport, register the device, and send its subscription to your backend.
+          Install <code className="font-mono">crosshooks</code>, choose a push transport,
+          register the device, and send its subscription to your backend.
         </p>
       </header>
 
       <Step number={1} title="Install the package">
-        <CodeBlock
-          lang="bash"
-          code="pnpm add @zoharyandrianome/crosshooks"
-        />
+        <CodeBlock lang="bash" code="pnpm add @zoharyandrianome/crosshooks" />
         <p>
           React 16.8 or newer is required. Provider SDKs are optional and are only
           installed when your application chooses that provider.
@@ -32,9 +29,8 @@ export default function GettingStarted() {
           <div className="rounded-xl border border-[#263050] bg-[#0f1526] p-4">
             <h3 className="font-semibold text-[#e8ecf8]">Standards-based Web Push</h3>
             <p className="mt-2">
-              Built in and dependency-free. It works in supported browsers and
-              returns a Web Push endpoint plus encryption keys. On React Native it is
-              a safe no-op.
+              Built in and dependency-free. It works in supported browsers and returns a
+              Web Push endpoint plus encryption keys. On React Native it is a safe no-op.
             </p>
           </div>
           <div className="rounded-xl border border-[#263050] bg-[#0f1526] p-4">
@@ -53,13 +49,11 @@ export default function GettingStarted() {
 
       <Step number={3} title="Prepare Web Push">
         <p>
-          Skip this step if you are using a provider adapter. The default hook needs
-          a secure origin, an active service worker, and a VAPID public key.
-          Localhost is treated as secure during development.
+          Skip this step if you are using a provider adapter. The default hook needs a
+          secure origin, an active service worker, and a VAPID public key. Localhost is
+          treated as secure during development.
         </p>
-        <p>
-          Register your service worker once near the root of the web application:
-        </p>
+        <p>Register your service worker once near the root of the web application:</p>
         <CodeBlock
           lang="tsx"
           code={`useEffect(() => {
@@ -90,8 +84,8 @@ function NotificationsButton() {
 }`}
         />
         <p>
-          The VAPID public key is safe to expose. Its matching private key must remain
-          on the server.
+          The VAPID public key is safe to expose. Its matching private key must remain on
+          the server.
         </p>
         <p>For Firebase, pass the Firebase adapter instead:</p>
         <CodeBlock
@@ -107,10 +101,7 @@ function NotificationsButton() {
         />
         <p>
           Follow the{' '}
-          <Link
-            href="/docs/provider/firebase"
-            className="text-[#6ea8fe] hover:underline"
-          >
+          <Link href="/docs/provider/firebase" className="text-[#6ea8fe] hover:underline">
             Firebase provider guide
           </Link>{' '}
           before using this version.
@@ -120,8 +111,8 @@ function NotificationsButton() {
       <Step number={5} title="Handle unsupported platforms">
         <p>
           Read <code className="font-mono">isSupported</code> before showing the
-          subscription controls. It remains false during server rendering and on
-          platforms that cannot use the selected transport.
+          subscription controls. It remains false during server rendering and on platforms
+          that cannot use the selected transport.
         </p>
         <CodeBlock
           lang="tsx"
@@ -133,8 +124,8 @@ function NotificationsButton() {
 
       <Step number={6} title="Subscribe and store the result">
         <p>
-          Call <code className="font-mono">subscribe()</code> from a direct user
-          action. The browser or operating system may show a permission prompt.
+          Call <code className="font-mono">subscribe()</code> from a direct user action.
+          The browser or operating system may show a permission prompt.
         </p>
         <CodeBlock
           lang="tsx"
@@ -167,8 +158,8 @@ function NotificationsButton() {
 }`}
         />
         <p>
-          Store the subscription with the authenticated user and its provider. A user
-          may have several subscriptions across multiple browsers and devices.
+          Store the subscription with the authenticated user and its provider. A user may
+          have several subscriptions across multiple browsers and devices.
         </p>
       </Step>
 
@@ -193,17 +184,16 @@ function NotificationsButton() {
 );`}
         />
         <p>
-          If unsubscribing succeeds, also remove or deactivate that subscription in
-          your backend.
+          If unsubscribing succeeds, also remove or deactivate that subscription in your
+          backend.
         </p>
       </Step>
 
       <Step number={8} title="Send notifications from a trusted backend">
         <p>
-          This client hook registers and unregisters devices. It does not securely
-          send privileged push messages. Your backend must select the stored provider
-          and send through Web Push, Firebase Admin SDK, or that provider&apos;s server
-          API.
+          This client hook registers and unregisters devices. It does not securely send
+          privileged push messages. Your backend must select the stored provider and send
+          through Web Push, Firebase Admin SDK, or that provider&apos;s server API.
         </p>
         <p className="rounded-xl border border-amber-400/30 bg-amber-400/10 p-4 text-amber-200">
           Never expose VAPID private keys, Firebase service accounts, APNs keys, or

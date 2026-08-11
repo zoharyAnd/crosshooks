@@ -14,7 +14,9 @@ export function StateRow({ label, value }: { label: string; value: boolean | str
   return (
     <div className="flex items-center justify-between rounded-xl border border-[#263050] bg-[#0f1526] px-3.5 py-3 font-mono text-sm">
       <code>{label}</code>
-      <span className={`rounded-full px-2.5 py-[3px] text-[13px] font-semibold ${toneFor(value)}`}>
+      <span
+        className={`rounded-full px-2.5 py-[3px] text-[13px] font-semibold ${toneFor(value)}`}
+      >
         {String(value)}
       </span>
     </div>

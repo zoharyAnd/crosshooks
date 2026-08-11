@@ -9,33 +9,31 @@ export default function FirebaseProviderDocumentation() {
         </span>
         <h1 className="mb-3 text-3xl font-bold">Firebase push notifications</h1>
         <p className="leading-6 text-[#93a0c4]">
-          Configure <code className="font-mono">usePushNotifications</code> with
-          Firebase Cloud Messaging on the web, iOS, and Android. The hook handles asking
-          for permission and getting a device token; the steps below are the one-time
-          Firebase and native platform setup that has to exist before it can run.
+          Configure <code className="font-mono">usePushNotifications</code> with Firebase
+          Cloud Messaging on the web, iOS, and Android. The hook handles asking for
+          permission and getting a device token; the steps below are the one-time Firebase
+          and native platform setup that has to exist before it can run.
         </p>
       </header>
 
       <Step number={1} title="Create the Firebase applications">
         <p>
-          Create a Firebase project, then register a Web app, Android app, and iOS app
-          for the platforms you support.
+          Create a Firebase project, then register a Web app, Android app, and iOS app for
+          the platforms you support.
         </p>
-        <p>In Firebase Console, open Project settings →
-          Cloud Messaging and create a Web Push certificate to obtain the public VAPID
-          key.</p>
+        <p>
+          In Firebase Console, open Project settings → Cloud Messaging and create a Web
+          Push certificate to obtain the public VAPID key.
+        </p>
       </Step>
 
       <Step number={2} title="Configure a web application">
         <p>Install the package and the optional Firebase Web SDK:</p>
-        <CodeBlock
-          lang="bash"
-          code="pnpm add @zoharyandrianome/crosshooks firebase"
-        />
+        <CodeBlock lang="bash" code="pnpm add @zoharyandrianome/crosshooks firebase" />
         <p>
           Copy <code className="font-mono">examples/docs/.env.example</code> to{' '}
-          <code className="font-mono">.env.local</code> and fill in the public values
-          from Firebase Console:
+          <code className="font-mono">.env.local</code> and fill in the public values from
+          Firebase Console:
         </p>
         <CodeBlock
           lang="dotenv"
@@ -49,9 +47,10 @@ NEXT_PUBLIC_FIREBASE_VAPID_KEY=`}
           Add <code className="font-mono">public/firebase-messaging-sw.js</code> so
           Firebase can create a background push subscription.
         </p>
-        <p>It may initially be an
-          empty service worker; add Firebase background-message handling when your
-          application needs custom background behavior.</p>
+        <p>
+          It may initially be an empty service worker; add Firebase background-message
+          handling when your application needs custom background behavior.
+        </p>
         <CodeBlock
           lang="tsx"
           code={`import { usePushNotifications } from '@zoharyandrianome/crosshooks';
@@ -86,19 +85,19 @@ function NotificationsButton() {
         />
         <p>
           <code className="font-mono">react-native-permissions</code> handles the
-          notification permission prompt on iOS and Android 13+. Follow its setup guide
-          to declare the notification permission in your native projects.
+          notification permission prompt on iOS and Android 13+. Follow its setup guide to
+          declare the notification permission in your native projects.
         </p>
         <p>
-          React Native configuration comes from native Firebase files, so the hook
-          does not need Firebase environment variables.
+          React Native configuration comes from native Firebase files, so the hook does
+          not need Firebase environment variables.
         </p>
       </Step>
 
       <Step number={4} title="Add the Android configuration">
         <p>
-          Download <code className="font-mono">google-services.json</code> from
-          Firebase Console and place it at:
+          Download <code className="font-mono">google-services.json</code> from Firebase
+          Console and place it at:
         </p>
         <CodeBlock lang="text" code="android/app/google-services.json" />
         <p>
@@ -109,20 +108,20 @@ function NotificationsButton() {
 
       <Step number={5} title="Add the iOS configuration">
         <p>
-          Apple requires every app that receives push notifications to be set up once
-          at the native level. The hook consumes the credentials these steps produce —
-          it cannot create them for you — so this part is manual. You need a Mac with
-          Xcode installed. Do each action in the tool named below.
+          Apple requires every app that receives push notifications to be set up once at
+          the native level. The hook consumes the credentials these steps produce — it
+          cannot create them for you — so this part is manual. You need a Mac with Xcode
+          installed. Do each action in the tool named below.
         </p>
         <ol className="list-decimal space-y-2 pl-5 marker:text-[#6ea8fe]">
           <li>
             <span className="font-semibold text-[#e8ecf8]">In Firebase Console:</span>{' '}
-            download <code className="font-mono">GoogleService-Info.plist</code> from
-            your iOS app&apos;s settings.
+            download <code className="font-mono">GoogleService-Info.plist</code> from your
+            iOS app&apos;s settings.
           </li>
           <li>
-            <span className="font-semibold text-[#e8ecf8]">In Xcode:</span> drag that
-            file into the <code className="font-mono">ios</code> project, and confirm it
+            <span className="font-semibold text-[#e8ecf8]">In Xcode:</span> drag that file
+            into the <code className="font-mono">ios</code> project, and confirm it
             appears under your app target&apos;s{' '}
             <span className="italic">Build Phases → Copy Bundle Resources</span> so it
             ships inside the app.
@@ -139,8 +138,8 @@ function NotificationsButton() {
             <span className="font-semibold text-[#e8ecf8]">
               In the Apple Developer portal:
             </span>{' '}
-            under <span className="italic">Keys</span>, create an APNs authentication
-            key and download the <code className="font-mono">.p8</code> file.
+            under <span className="italic">Keys</span>, create an APNs authentication key
+            and download the <code className="font-mono">.p8</code> file.
           </li>
           <li>
             <span className="font-semibold text-[#e8ecf8]">In Firebase Console:</span>{' '}
@@ -158,8 +157,8 @@ function NotificationsButton() {
         <CodeBlock lang="bash" code={`cd ios && pod install`} />
         <p>
           Rebuild from Xcode (or your usual React Native run command) after{' '}
-          <code className="font-mono">pod install</code>. Push notifications only
-          arrive on a real device — the iOS Simulator cannot receive them.
+          <code className="font-mono">pod install</code>. Push notifications only arrive
+          on a real device — the iOS Simulator cannot receive them.
         </p>
       </Step>
 
@@ -177,35 +176,41 @@ function NotificationsButton() {
 }`}
         />
         <p>
-          <code className="font-mono">subscribe()</code> requests permission and
-          returns an FCM token. Send that token to your backend and associate it with
-          the signed-in user.
+          <code className="font-mono">subscribe()</code> requests permission and returns
+          an FCM token. Send that token to your backend and associate it with the
+          signed-in user.
         </p>
       </Step>
 
       <Step number={7} title="Send securely from a backend">
         <p>
-          The hook registers the device; it does not embed Firebase server credentials
-          or send privileged messages from the client. Use Firebase Admin SDK or the
-          FCM HTTP v1 API in a trusted backend.
+          The hook registers the device; it does not embed Firebase server credentials or
+          send privileged messages from the client. Use Firebase Admin SDK or the FCM HTTP
+          v1 API in a trusted backend.
         </p>
         <p className="rounded-xl border border-amber-400/30 bg-amber-400/10 p-4 text-amber-200">
-          Never expose service-account credentials, APNs keys, FCM server credentials,
-          or provider REST API keys through client environment variables. Only
-          Firebase client configuration and the VAPID public key are public.
+          Never expose service-account credentials, APNs keys, FCM server credentials, or
+          provider REST API keys through client environment variables. Only Firebase
+          client configuration and the VAPID public key are public.
         </p>
       </Step>
 
       <footer className="border-t border-[#263050] pt-6 text-sm text-[#93a0c4]">
         Continue with the official{' '}
-        <a className="text-[#6ea8fe] hover:underline" href="https://rnfirebase.io/" target="_blank" rel="noopener noreferrer">
+        <a
+          className="text-[#6ea8fe] hover:underline"
+          href="https://rnfirebase.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           React Native Firebase setup guide
         </a>{' '}
         and{' '}
         <a
           className="text-[#6ea8fe] hover:underline"
           href="https://firebase.google.com/docs/cloud-messaging"
-          target="_blank" rel="noopener noreferrer"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Firebase Cloud Messaging documentation
         </a>

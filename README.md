@@ -7,12 +7,14 @@
 [![live demo](https://img.shields.io/badge/demo-live-brightgreen)](https://crosshooks-demo.vercel.app)
 [![license](https://img.shields.io/npm/l/@zoharyandrianome/crosshooks.svg)](./LICENSE)
 
-**▶ [Try the live demo](https://crosshooks-demo.vercel.app)** — `usePWAInstallPrompt` and `usePushNotifications` running live.
+[Browse the full documentation](https://crosshooks-demo.vercel.app)
 
-`crosshooks` provides consistent typed APIs across web and React Native. Browser
-features use standards-based web implementations. Native push notifications can
-be enabled through optional provider adapters; unsupported browser-only features
-return a safe no-op state so shared components can check `isSupported`.
+[Try the live demo](https://crosshooks-demo.vercel.app/demos)
+
+`crosshooks` provides consistent typed APIs across web and React Native.  
+Browser
+features use standards-based web implementations.  
+Native push notifications can be enabled through optional provider adapters; unsupported browser-only features return a safe no-op state so shared components can check `isSupported`.
 
 ## Install
 
@@ -65,6 +67,8 @@ function InstallButton() {
 
 ### `usePushNotifications`
 
+### Web push notifications
+
 Drive the Web Push lifecycle — permission, subscription, and unsubscription —
 from one hook, and get a serializable subscription to send to your server. On
 React Native it's a safe no-op (native push rides on APNs/FCM via platform SDKs),
@@ -104,23 +108,63 @@ function NotificationsToggle() {
 Requires an active service worker (for `PushManager`). Pass your VAPID public key
 as `applicationServerKey` — Chromium browsers require it to subscribe.
 
+---
+
+### Native push notifications
+
+For the React Native implementation, you can opt for one of the providers below:
+
+- Firebase
+- OneSignal (coming soon)
+- Expo (coming soon)
+
 #### Firebase provider
 
-Firebase is an optional provider for web, React Native iOS, and Android. Follow
-the [step-by-step Firebase setup guide](https://crosshooks-demo.vercel.app/docs/provider/firebase)
-for SDK installation, environment variables, service workers, and native files.
+Firebase is an optional provider for web, React Native iOS, and Android.  
+Follow the [step-by-step Firebase setup guide](https://crosshooks-demo.vercel.app/docs/provider/firebase) for SDK installation, environment variables, service workers, and native files.
+
+Import the provider from the `/firebase` subpath and pass it to
+`usePushNotifications`. The bundler picks the web or native adapter
+automatically — on native, config comes from `google-services.json` /
+`GoogleService-Info.plist`, so `firebaseProvider()` takes no arguments there.
+
+```tsx
+import { usePushNotifications } from '@zoharyandrianome/crosshooks';
+import { firebaseProvider } from '@zoharyandrianome/crosshooks/firebase';
+
+// Web: pass your Firebase config and VAPID key.
+// React Native: call firebaseProvider() with no arguments.
+const provider = firebaseProvider({
+  firebaseConfig: {/* apiKey, projectId, messagingSenderId, appId, … */},
+  vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY!,
+});
+
+function NotificationsToggle() {
+  const { isSupported, isSubscribed, subscribe, unsubscribe } = usePushNotifications({
+    provider,
+  });
+
+  if (!isSupported) return null;
+
+  return (
+    <button onClick={() => (isSubscribed ? unsubscribe() : subscribe())}>
+      {isSubscribed ? 'Disable notifications' : 'Enable notifications'}
+    </button>
+  );
+}
+```
 
 #### Returns
 
-| Field               | Type                                        | Description                                                         |
-| ------------------- | ------------------------------------------- | ------------------------------------------------------------------- |
-| `isSupported`       | `boolean`                                   | `true` when Notification + Service Worker + PushManager exist.      |
-| `permission`        | `'default' \| 'granted' \| 'denied'`        | Current notification permission.                                    |
-| `subscription`      | `PushSubscription \| null`                  | Serializable endpoint or provider token, or `null`.                 |
-| `isSubscribed`      | `boolean`                                   | Whether a subscription is active.                                   |
-| `requestPermission` | `() => Promise<PushPermission>`             | Prompts for permission and returns the result.                      |
-| `subscribe`         | `() => Promise<PushSubscription\|null>`     | Ensures permission, then subscribes. `null` if refused/unsupported. |
-| `unsubscribe`       | `() => Promise<boolean>`                    | Cancels the active subscription.                                    |
+| Field               | Type                                    | Description                                                                                                                        |
+| ------------------- | --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `isSupported`       | `boolean`                               | On web, `true` when the browser supports FCM (Service Worker, PushManager, IndexedDB); on React Native, `true` on iOS and Android. |
+| `permission`        | `'default' \| 'granted' \| 'denied'`    | Current notification permission.                                                                                                   |
+| `subscription`      | `PushSubscription \| null`              | Serializable endpoint or provider token, or `null`.                                                                                |
+| `isSubscribed`      | `boolean`                               | Whether a subscription is active.                                                                                                  |
+| `requestPermission` | `() => Promise<PushPermission>`         | Prompts for permission and returns the result.                                                                                     |
+| `subscribe`         | `() => Promise<PushSubscription\|null>` | Ensures permission, then subscribes. `null` if refused/unsupported.                                                                |
+| `unsubscribe`       | `() => Promise<boolean>`                | Cancels the active subscription.                                                                                                   |
 
 ## How the cross-platform build works
 

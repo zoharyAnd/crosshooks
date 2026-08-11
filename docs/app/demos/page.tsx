@@ -10,9 +10,10 @@ export default function Home() {
   const [demo, setDemo] = useState<Demo>('install');
 
   const buttonClass = (value: Demo) =>
-    `rounded-xl border px-4 py-3 text-sm font-semibold transition-colors ${demo === value
-      ? 'border-[#6ea8fe] bg-[#6ea8fe] text-[#06122b]'
-      : 'border-[#263050] bg-[#141a2e] text-[#93a0c4] hover:text-[#e8ecf8]'
+    `rounded-xl border px-4 py-3 text-sm font-semibold transition-colors ${
+      demo === value
+        ? 'border-[#6ea8fe] bg-[#6ea8fe] text-[#06122b]'
+        : 'border-[#263050] bg-[#141a2e] text-[#93a0c4] hover:text-[#e8ecf8]'
     }`;
 
   return (

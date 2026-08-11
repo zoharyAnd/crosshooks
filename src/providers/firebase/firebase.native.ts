@@ -79,9 +79,7 @@ export function firebaseProvider(_config: FirebasePushConfig = {}): PushProvider
     requestPermission,
     subscribe: async () => {
       const permission =
-        (await getPermission()) === 'granted'
-          ? 'granted'
-          : await requestPermission();
+        (await getPermission()) === 'granted' ? 'granted' : await requestPermission();
       if (permission !== 'granted') return null;
 
       await registerDeviceForRemoteMessages(messaging);
