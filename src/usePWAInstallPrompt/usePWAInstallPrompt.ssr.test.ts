@@ -11,11 +11,7 @@ import { usePWAInstallPrompt } from './usePWAInstallPrompt.web';
  */
 function Probe() {
   const { isSupported, canInstall, isInstalled } = usePWAInstallPrompt();
-  return createElement(
-    'output',
-    null,
-    `${isSupported}:${canInstall}:${isInstalled}`,
-  );
+  return createElement('output', null, `${isSupported}:${canInstall}:${isInstalled}`);
 }
 
 describe('usePWAInstallPrompt (SSR)', () => {

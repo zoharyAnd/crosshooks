@@ -21,8 +21,8 @@ export default function Home() {
             <code>usePWAInstallPrompt</code>
           </h1>
           <p className="tagline">
-            One cross-platform hook for the PWA install flow. The same code runs on
-            React Native — where it simply reports “not supported”.
+            One cross-platform hook for the PWA install flow. The same code runs on React
+            Native — where it simply reports “not supported”.
           </p>
         </header>
 
@@ -33,11 +33,7 @@ export default function Home() {
         </section>
 
         <section className="actions">
-          <button
-            className="install"
-            onClick={handleInstall}
-            disabled={!canInstall}
-          >
+          <button className="install" onClick={handleInstall} disabled={!canInstall}>
             {isInstalled ? 'Already installed' : 'Install app'}
           </button>
 
@@ -55,8 +51,8 @@ export default function Home() {
             <p>Your browser offered an install prompt — click the button above.</p>
           ) : (
             <p>
-              No install prompt yet. On desktop Chrome/Edge, load this over HTTPS and
-              wait a moment; on iOS Safari, use Share → “Add to Home Screen”.
+              No install prompt yet. On desktop Chrome/Edge, load this over HTTPS and wait
+              a moment; on iOS Safari, use Share → “Add to Home Screen”.
             </p>
           )}
         </footer>

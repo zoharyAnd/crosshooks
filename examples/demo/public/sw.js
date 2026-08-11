@@ -7,9 +7,7 @@ const CACHE = 'crosshooks-demo-v1';
 const OFFLINE_URLS = ['/'];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE).then((cache) => cache.addAll(OFFLINE_URLS)),
-  );
+  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(OFFLINE_URLS)));
   self.skipWaiting();
 });
 

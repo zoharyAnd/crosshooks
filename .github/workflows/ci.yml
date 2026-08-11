@@ -25,8 +25,20 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
+      - name: Lint
+        run: pnpm lint
+
+      - name: Format check
+        run: pnpm format:check
+
       - name: Test
         run: pnpm test:coverage
 
       - name: Build
         run: pnpm build
+
+      - name: Validate package (publint + are-the-types-wrong)
+        run: pnpm check:package
+
+      - name: Size limit
+        run: pnpm size

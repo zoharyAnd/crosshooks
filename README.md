@@ -54,12 +54,12 @@ function InstallButton() {
 
 #### Returns
 
-| Field           | Type                                      | Description                                                                 |
-| --------------- | ----------------------------------------- | --------------------------------------------------------------------------- |
-| `canInstall`    | `boolean`                                 | The browser offered an install prompt and it's ready to show.               |
-| `isInstalled`   | `boolean`                                 | The app is already running as an installed PWA.                             |
-| `isSupported`   | `boolean`                                 | `false` on React Native, during SSR, and where install prompts don't exist. |
-| `promptInstall` | `() => Promise<{ outcome }>`              | Shows the native prompt. `outcome` is `accepted` / `dismissed` / `unavailable`. |
+| Field           | Type                         | Description                                                                     |
+| --------------- | ---------------------------- | ------------------------------------------------------------------------------- |
+| `canInstall`    | `boolean`                    | The browser offered an install prompt and it's ready to show.                   |
+| `isInstalled`   | `boolean`                    | The app is already running as an installed PWA.                                 |
+| `isSupported`   | `boolean`                    | `false` on React Native, during SSR, and where install prompts don't exist.     |
+| `promptInstall` | `() => Promise<{ outcome }>` | Shows the native prompt. `outcome` is `accepted` / `dismissed` / `unavailable`. |
 
 ## How the cross-platform build works
 
@@ -84,10 +84,17 @@ misuse the same way everywhere.
 
 ```bash
 pnpm install
-pnpm test        # vitest (jsdom)
-pnpm typecheck   # tsc --noEmit
-pnpm build       # tsup → dual ESM/CJS + .d.ts
+pnpm test           # vitest (jsdom), incl. an SSR render test
+pnpm typecheck      # tsc --noEmit
+pnpm lint           # eslint (typescript-eslint + react-hooks)
+pnpm format         # prettier --write .
+pnpm build          # tsup → dual ESM/CJS + .d.ts
+pnpm check:package  # publint + are-the-types-wrong (validates the exports map)
+pnpm size           # size-limit (per-hook, tree-shaken)
 ```
+
+CI runs every one of these on push and PR, so the exports map, type
+resolution across ESM/CJS, and bundle size are all guarded automatically.
 
 Releases are automated with [changesets](https://github.com/changesets/changesets):
 run `pnpm changeset` to record a change; merging the generated "Version Packages"

@@ -1,0 +1,16 @@
+[
+  {
+    "name": "usePWAInstallPrompt (web, ESM)",
+    "path": "dist/index.js",
+    "import": "{ usePWAInstallPrompt }",
+    "ignore": ["react"],
+    "limit": "500 B"
+  },
+  {
+    "name": "usePWAInstallPrompt (native, ESM)",
+    "path": "dist/index.native.js",
+    "import": "{ usePWAInstallPrompt }",
+    "ignore": ["react"],
+    "limit": "150 B"
+  }
+]

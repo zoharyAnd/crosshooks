@@ -34,7 +34,9 @@ function isStandalone(): boolean {
  * condition; React Native bundlers resolve the `.native` counterpart instead.
  */
 export function usePWAInstallPrompt(): PWAInstallPrompt {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(
+    null,
+  );
   const [isInstalled, setIsInstalled] = useState(false);
   // Start `false` so the first client render matches the server render (which
   // has no `window`), then resolve the real value after mount — this keeps the
