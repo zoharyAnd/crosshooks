@@ -9,6 +9,9 @@ export { usePushNotifications } from './usePushNotifications/usePushNotification
 export type {
   PushNotifications,
   PushPermission,
+  PushProvider,
+  PushSubscription,
   PushSubscriptionInfo,
+  PushTokenSubscriptionInfo,
   UsePushNotificationsOptions,
 } from './usePushNotifications/types';

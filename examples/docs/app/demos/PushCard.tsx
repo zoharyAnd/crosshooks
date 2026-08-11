@@ -91,9 +91,9 @@ export function PushCard() {
 
         {subscription && (
           <p className="text-sm text-[#93a0c4]">
-            Subscribed. Endpoint:
+            Subscribed. {'endpoint' in subscription ? 'Endpoint:' : 'Token:'}
             <code className="mt-1.5 block break-all font-mono text-[11px] text-[#93a0c4]">
-              {subscription.endpoint}
+              {'endpoint' in subscription ? subscription.endpoint : subscription.token}
             </code>
           </p>
         )}

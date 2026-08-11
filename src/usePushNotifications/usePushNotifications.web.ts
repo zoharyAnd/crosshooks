@@ -5,6 +5,17 @@ import type {
   PushSubscriptionInfo,
   UsePushNotificationsOptions,
 } from './types';
+import { useProviderPushNotifications } from './useProviderPushNotifications';
+
+const unsupportedProvider = {
+  id: 'unsupported',
+  isSupported: () => false,
+  getPermission: () => 'default' as const,
+  getSubscription: () => null,
+  requestPermission: async () => 'default' as const,
+  subscribe: async () => null,
+  unsubscribe: async () => false,
+};
 
 function isPushSupported(): boolean {
   return (
@@ -50,7 +61,10 @@ function toInfo(subscription: PushSubscription | null): PushSubscriptionInfo | n
 export function usePushNotifications(
   options: UsePushNotificationsOptions = {},
 ): PushNotifications {
-  const { applicationServerKey, userVisibleOnly = true } = options;
+  const { applicationServerKey, provider, userVisibleOnly = true } = options;
+  const providerNotifications = useProviderPushNotifications(
+    provider ?? unsupportedProvider,
+  );
 
   const [isSupported, setIsSupported] = useState(false);
   // Start from SSR-safe defaults; the real values are resolved after mount so
@@ -127,7 +141,7 @@ export function usePushNotifications(
     return removed;
   }, []);
 
-  return {
+  const webPushNotifications: PushNotifications = {
     isSupported,
     permission,
     subscription,
@@ -136,4 +150,6 @@ export function usePushNotifications(
     subscribe,
     unsubscribe,
   };
+
+  return provider ? providerNotifications : webPushNotifications;
 }

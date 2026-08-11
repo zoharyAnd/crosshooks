@@ -1,10 +1,15 @@
-import { useCallback } from 'react';
-import type {
-  PushNotifications,
-  PushPermission,
-  PushSubscriptionInfo,
-  UsePushNotificationsOptions,
-} from './types';
+import type { PushNotifications, UsePushNotificationsOptions } from './types';
+import { useProviderPushNotifications } from './useProviderPushNotifications';
+
+const unsupportedProvider = {
+  id: 'unsupported',
+  isSupported: () => false,
+  getPermission: () => 'default' as const,
+  getSubscription: () => null,
+  requestPermission: async () => 'default' as const,
+  subscribe: async () => null,
+  unsubscribe: async () => false,
+};
 
 /**
  * React Native implementation.
@@ -17,25 +22,7 @@ import type {
  * parity and ignored.
  */
 export function usePushNotifications(
-  _options?: UsePushNotificationsOptions,
+  options: UsePushNotificationsOptions = {},
 ): PushNotifications {
-  const requestPermission = useCallback(
-    async (): Promise<PushPermission> => 'default',
-    [],
-  );
-  const subscribe = useCallback(
-    async (): Promise<PushSubscriptionInfo | null> => null,
-    [],
-  );
-  const unsubscribe = useCallback(async (): Promise<boolean> => false, []);
-
-  return {
-    isSupported: false,
-    permission: 'default',
-    subscription: null,
-    isSubscribed: false,
-    requestPermission,
-    subscribe,
-    unsubscribe,
-  };
+  return useProviderPushNotifications(options.provider ?? unsupportedProvider);
 }

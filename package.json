@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Cross-platform React hooks that work on both web and React Native — typed, tested, zero-config.",
+  "description": "Typed React hooks with platform adapters for web and React Native.",
   "keywords": [
     "react",
     "react-native",
@@ -52,6 +52,21 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./firebase": {
+      "react-native": {
+        "types": "./dist/firebase.native.d.ts",
+        "import": "./dist/firebase.native.js",
+        "require": "./dist/firebase.native.cjs"
+      },
+      "import": {
+        "types": "./dist/firebase.d.ts",
+        "default": "./dist/firebase.js"
+      },
+      "require": {
+        "types": "./dist/firebase.d.cts",
+        "default": "./dist/firebase.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -71,12 +86,32 @@
     "release": "changeset publish"
   },
   "peerDependencies": {
-    "react": ">=16.8.0"
+    "@react-native-firebase/app": "^25.1.0",
+    "@react-native-firebase/messaging": "^25.1.0",
+    "firebase": "^12.0.0",
+    "react": ">=16.8.0",
+    "react-native": ">=0.60.0"
+  },
+  "peerDependenciesMeta": {
+    "@react-native-firebase/app": {
+      "optional": true
+    },
+    "@react-native-firebase/messaging": {
+      "optional": true
+    },
+    "firebase": {
+      "optional": true
+    },
+    "react-native": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
     "@changesets/cli": "^2.27.9",
     "@eslint/js": "^9.0.0",
+    "@react-native-firebase/app": "^25.1.0",
+    "@react-native-firebase/messaging": "^25.1.0",
     "@size-limit/preset-small-lib": "^11.0.0",
     "@testing-library/react": "^16.1.0",
     "@types/react": "^18.3.12",
@@ -85,11 +120,13 @@
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^5.0.0",
+    "firebase": "^12.17.1",
     "jsdom": "^25.0.1",
     "prettier": "^3.3.0",
     "publint": "^0.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-native": "0.76.9",
     "size-limit": "^11.0.0",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",

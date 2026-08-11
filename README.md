@@ -1,6 +1,6 @@
 # crosshooks
 
-> Cross-platform React hooks that work on both web and React Native — typed, tested, zero-config.
+> Typed React hooks with platform adapters for web, React Native iOS, and Android.
 
 [![CI](https://github.com/zoharyAnd/crosshooks/actions/workflows/ci.yml/badge.svg)](https://github.com/zoharyAnd/crosshooks/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@zoharyandrianome/crosshooks.svg)](https://www.npmjs.com/package/@zoharyandrianome/crosshooks)
@@ -9,11 +9,10 @@
 
 **▶ [Try the live demo](https://crosshooks-demo.vercel.app)** — `usePWAInstallPrompt` and `usePushNotifications` running live.
 
-One hook API, every platform. `crosshooks` ships a single set of typed React
-hooks with **platform adapters** under the hood: web bundlers get the DOM
-implementation, React Native bundlers get the native one — resolved
-automatically through the package's `exports` map. Your components stay
-identical across web and mobile.
+`crosshooks` provides consistent typed APIs across web and React Native. Browser
+features use standards-based web implementations. Native push notifications can
+be enabled through optional provider adapters; unsupported browser-only features
+return a safe no-op state so shared components can check `isSupported`.
 
 ## Install
 
@@ -105,16 +104,22 @@ function NotificationsToggle() {
 Requires an active service worker (for `PushManager`). Pass your VAPID public key
 as `applicationServerKey` — Chromium browsers require it to subscribe.
 
+#### Firebase provider
+
+Firebase is an optional provider for web, React Native iOS, and Android. Follow
+the [step-by-step Firebase setup guide](https://crosshooks-demo.vercel.app/docs/provider/firebase)
+for SDK installation, environment variables, service workers, and native files.
+
 #### Returns
 
 | Field               | Type                                        | Description                                                         |
 | ------------------- | ------------------------------------------- | ------------------------------------------------------------------- |
 | `isSupported`       | `boolean`                                   | `true` when Notification + Service Worker + PushManager exist.      |
 | `permission`        | `'default' \| 'granted' \| 'denied'`        | Current notification permission.                                    |
-| `subscription`      | `PushSubscriptionInfo \| null`              | Serializable subscription to send to your server, or `null`.        |
+| `subscription`      | `PushSubscription \| null`                  | Serializable endpoint or provider token, or `null`.                 |
 | `isSubscribed`      | `boolean`                                   | Whether a subscription is active.                                   |
 | `requestPermission` | `() => Promise<PushPermission>`             | Prompts for permission and returns the result.                      |
-| `subscribe`         | `() => Promise<PushSubscriptionInfo\|null>` | Ensures permission, then subscribes. `null` if refused/unsupported. |
+| `subscribe`         | `() => Promise<PushSubscription\|null>`     | Ensures permission, then subscribes. `null` if refused/unsupported. |
 | `unsubscribe`       | `() => Promise<boolean>`                    | Cancels the active subscription.                                    |
 
 ## How the cross-platform build works

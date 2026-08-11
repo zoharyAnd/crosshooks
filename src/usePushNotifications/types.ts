@@ -21,7 +21,29 @@ export interface PushSubscriptionInfo {
   };
 }
 
+/** A provider-issued token used by Firebase, OneSignal, Expo, and native push SDKs. */
+export interface PushTokenSubscriptionInfo {
+  provider: string;
+  platform: 'web' | 'ios' | 'android';
+  token: string;
+}
+
+export type PushSubscription = PushSubscriptionInfo | PushTokenSubscriptionInfo;
+
+/** Adapter contract implemented by optional push-provider integrations. */
+export interface PushProvider {
+  readonly id: string;
+  isSupported: () => boolean | Promise<boolean>;
+  getPermission: () => PushPermission | Promise<PushPermission>;
+  getSubscription: () => PushSubscription | null | Promise<PushSubscription | null>;
+  requestPermission: () => Promise<PushPermission>;
+  subscribe: () => Promise<PushSubscription | null>;
+  unsubscribe: () => Promise<boolean>;
+}
+
 export interface UsePushNotificationsOptions {
+  /** Optional provider adapter. Omit it to use standards-based Web Push. */
+  provider?: PushProvider;
   /**
    * VAPID public key (base64url) used to authenticate the push subscription.
    * Required by Chromium browsers to {@link PushNotifications.subscribe}.
@@ -46,7 +68,7 @@ export interface PushNotifications {
   permission: PushPermission;
 
   /** The active push subscription, or `null` when not subscribed. */
-  subscription: PushSubscriptionInfo | null;
+  subscription: PushSubscription | null;
 
   /** Convenience flag: `true` when {@link PushNotifications.subscription} is set. */
   isSubscribed: boolean;
@@ -59,7 +81,7 @@ export interface PushNotifications {
    * Resolves with the subscription info, or `null` if permission was refused
    * or the platform is unsupported.
    */
-  subscribe: () => Promise<PushSubscriptionInfo | null>;
+  subscribe: () => Promise<PushSubscription | null>;
 
   /** Cancels the active subscription. Resolves `true` if one was removed. */
   unsubscribe: () => Promise<boolean>;
