@@ -10,7 +10,12 @@ import {
 import { PermissionsAndroid, Platform } from 'react-native';
 import type { PushPermission, PushProvider } from '../../usePushNotifications/types';
 
-export interface FirebasePushConfig {}
+/**
+ * Native Firebase reads its configuration from the platform's
+ * `google-services.json` / `GoogleService-Info.plist`, so no options are
+ * required. The parameter exists only for API parity with the web adapter.
+ */
+export type FirebasePushConfig = Record<string, never>;
 
 function toPermission(status: number): PushPermission {
   if (
@@ -52,18 +57,25 @@ export function firebaseProvider(_config: FirebasePushConfig = {}): PushProvider
     return toPermission(await requestFirebasePermission(messaging));
   };
 
+  const asSubscription = (value: string) => ({
+    provider: 'firebase',
+    platform: Platform.OS as 'ios' | 'android',
+    token: value,
+  });
+
   return {
     id: 'firebase',
     isSupported: () => Platform.OS === 'ios' || Platform.OS === 'android',
     getPermission,
-    getSubscription: () =>
-      token
-        ? {
-            provider: 'firebase',
-            platform: Platform.OS as 'ios' | 'android',
-            token,
-          }
-        : null,
+    getSubscription: async () => {
+      if (token) return asSubscription(token);
+      // Re-hydrate the device's existing FCM token on load so the hook reports
+      // the real subscription state after an app restart, without prompting.
+      if ((await getPermission()) !== 'granted') return null;
+      await registerDeviceForRemoteMessages(messaging);
+      token = await getToken(messaging);
+      return token ? asSubscription(token) : null;
+    },
     requestPermission,
     subscribe: async () => {
       const permission =
@@ -74,11 +86,7 @@ export function firebaseProvider(_config: FirebasePushConfig = {}): PushProvider
 
       await registerDeviceForRemoteMessages(messaging);
       token = await getToken(messaging);
-      return {
-        provider: 'firebase',
-        platform: Platform.OS as 'ios' | 'android',
-        token,
-      };
+      return asSubscription(token);
     },
     unsubscribe: async () => {
       if (!token) return false;

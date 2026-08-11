@@ -37,27 +37,35 @@ export function firebaseProvider(config: FirebasePushConfig): PushProvider {
     return (await Notification.requestPermission()) as PushPermission;
   };
 
-  const subscribe = async () => {
-    const permission =
-      getPermission() === 'granted' ? 'granted' : await requestPermission();
-    if (permission !== 'granted') return null;
-
+  const fetchToken = async () => {
     token = await getToken(getMessagingInstance(), {
       vapidKey: config.vapidKey,
       ...(config.serviceWorkerRegistration
         ? { serviceWorkerRegistration: config.serviceWorkerRegistration }
         : {}),
     });
-
     return token ? { provider: 'firebase', platform: 'web' as const, token } : null;
+  };
+
+  const subscribe = async () => {
+    const permission =
+      getPermission() === 'granted' ? 'granted' : await requestPermission();
+    if (permission !== 'granted') return null;
+    return fetchToken();
   };
 
   return {
     id: 'firebase',
     isSupported,
     getPermission,
-    getSubscription: () =>
-      token ? { provider: 'firebase', platform: 'web' as const, token } : null,
+    getSubscription: async () => {
+      if (token) return { provider: 'firebase', platform: 'web' as const, token };
+      // Re-hydrate the existing FCM token on load so the hook reports the real
+      // subscription state after a reload. `getToken` reuses the active
+      // subscription and does not prompt when permission is already granted.
+      if (getPermission() !== 'granted') return null;
+      return fetchToken();
+    },
     requestPermission,
     subscribe,
     unsubscribe: async () => {

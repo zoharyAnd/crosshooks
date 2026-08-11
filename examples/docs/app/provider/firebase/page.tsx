@@ -30,7 +30,7 @@ export default function FirebaseProviderDocumentation() {
           code="pnpm add @zoharyandrianome/crosshooks firebase"
         />
         <p>
-          Copy <code className="font-mono">examples/demo/.env.example</code> to{' '}
+          Copy <code className="font-mono">examples/docs/.env.example</code> to{' '}
           <code className="font-mono">.env.local</code> and fill in the public values
           from Firebase Console:
         </p>
