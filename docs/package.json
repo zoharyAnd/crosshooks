@@ -1,6 +1,6 @@
 {
-  "name": "crosshooks-demo",
-  "version": "0.0.0",
+  "name": "crosshooks-docs",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "pnpm -w run build && next dev",

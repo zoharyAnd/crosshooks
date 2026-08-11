@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "demo",
+      "name": "docs",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "crosshooks-demo", "dev"],
+      "runtimeArgs": ["-C", "docs", "exec", "next", "dev", "-p", "3000"],
       "port": 3000
     }
   ]

@@ -10,17 +10,20 @@ export default function FirebaseProviderDocumentation() {
         <h1 className="mb-3 text-3xl font-bold">Firebase push notifications</h1>
         <p className="leading-6 text-[#93a0c4]">
           Configure <code className="font-mono">usePushNotifications</code> with
-          Firebase Cloud Messaging on the web, iOS, and Android.
+          Firebase Cloud Messaging on the web, iOS, and Android. The hook handles asking
+          for permission and getting a device token; the steps below are the one-time
+          Firebase and native platform setup that has to exist before it can run.
         </p>
       </header>
 
       <Step number={1} title="Create the Firebase applications">
         <p>
           Create a Firebase project, then register a Web app, Android app, and iOS app
-          for the platforms you support. In Firebase Console, open Project settings →
-          Cloud Messaging and create a Web Push certificate to obtain the public VAPID
-          key.
+          for the platforms you support.
         </p>
+        <p>In Firebase Console, open Project settings →
+          Cloud Messaging and create a Web Push certificate to obtain the public VAPID
+          key.</p>
       </Step>
 
       <Step number={2} title="Configure a web application">
@@ -44,10 +47,11 @@ NEXT_PUBLIC_FIREBASE_VAPID_KEY=`}
         />
         <p>
           Add <code className="font-mono">public/firebase-messaging-sw.js</code> so
-          Firebase can create a background push subscription. It may initially be an
-          empty service worker; add Firebase background-message handling when your
-          application needs custom background behavior.
+          Firebase can create a background push subscription.
         </p>
+        <p>It may initially be an
+          empty service worker; add Firebase background-message handling when your
+          application needs custom background behavior.</p>
         <CodeBlock
           lang="tsx"
           code={`import { usePushNotifications } from '@zoharyandrianome/crosshooks';
@@ -105,14 +109,57 @@ function NotificationsButton() {
 
       <Step number={5} title="Add the iOS configuration">
         <p>
-          Download <code className="font-mono">GoogleService-Info.plist</code>, add it
-          to the <code className="font-mono">ios</code> project through Xcode, and
-          ensure the application target includes it.
+          Apple requires every app that receives push notifications to be set up once
+          at the native level. The hook consumes the credentials these steps produce —
+          it cannot create them for you — so this part is manual. You need a Mac with
+          Xcode installed. Do each action in the tool named below.
         </p>
+        <ol className="list-decimal space-y-2 pl-5 marker:text-[#6ea8fe]">
+          <li>
+            <span className="font-semibold text-[#e8ecf8]">In Firebase Console:</span>{' '}
+            download <code className="font-mono">GoogleService-Info.plist</code> from
+            your iOS app&apos;s settings.
+          </li>
+          <li>
+            <span className="font-semibold text-[#e8ecf8]">In Xcode:</span> drag that
+            file into the <code className="font-mono">ios</code> project, and confirm it
+            appears under your app target&apos;s{' '}
+            <span className="italic">Build Phases → Copy Bundle Resources</span> so it
+            ships inside the app.
+          </li>
+          <li>
+            <span className="font-semibold text-[#e8ecf8]">In Xcode:</span> open{' '}
+            <span className="italic">Signing &amp; Capabilities</span>, click{' '}
+            <span className="italic">+ Capability</span>, and add{' '}
+            <span className="italic">Push Notifications</span>. Then add{' '}
+            <span className="italic">Background Modes</span> and tick{' '}
+            <span className="italic">Remote notifications</span>.
+          </li>
+          <li>
+            <span className="font-semibold text-[#e8ecf8]">
+              In the Apple Developer portal:
+            </span>{' '}
+            under <span className="italic">Keys</span>, create an APNs authentication
+            key and download the <code className="font-mono">.p8</code> file.
+          </li>
+          <li>
+            <span className="font-semibold text-[#e8ecf8]">In Firebase Console:</span>{' '}
+            upload that <code className="font-mono">.p8</code> key under{' '}
+            <span className="italic">
+              Project settings → Cloud Messaging → Apple app configuration
+            </span>
+            . This is what lets Firebase hand your messages to Apple&apos;s servers.
+          </li>
+          <li>
+            <span className="font-semibold text-[#e8ecf8]">In a terminal:</span> install
+            the native pods and rebuild the app.
+          </li>
+        </ol>
+        <CodeBlock lang="bash" code={`cd ios && pod install`} />
         <p>
-          Enable Push Notifications and Background Modes → Remote notifications in
-          Xcode. Upload an APNs authentication key to Firebase Console, install
-          CocoaPods, and rebuild the app.
+          Rebuild from Xcode (or your usual React Native run command) after{' '}
+          <code className="font-mono">pod install</code>. Push notifications only
+          arrive on a real device — the iOS Simulator cannot receive them.
         </p>
       </Step>
 
@@ -151,13 +198,14 @@ function NotificationsButton() {
 
       <footer className="border-t border-[#263050] pt-6 text-sm text-[#93a0c4]">
         Continue with the official{' '}
-        <a className="text-[#6ea8fe] hover:underline" href="https://rnfirebase.io/">
+        <a className="text-[#6ea8fe] hover:underline" href="https://rnfirebase.io/" target="_blank" rel="noopener noreferrer">
           React Native Firebase setup guide
         </a>{' '}
         and{' '}
         <a
           className="text-[#6ea8fe] hover:underline"
           href="https://firebase.google.com/docs/cloud-messaging"
+          target="_blank" rel="noopener noreferrer"
         >
           Firebase Cloud Messaging documentation
         </a>
