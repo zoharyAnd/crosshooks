@@ -8,9 +8,9 @@ export default tseslint.config(
     ignores: [
       '**/dist/**',
       '**/coverage/**',
-      'examples/**/.next/**',
-      'examples/**/next-env.d.ts',
-      'examples/**/public/**',
+      'docs/.next/**',
+      'docs/next-env.d.ts',
+      'docs/public/**',
     ],
   },
   js.configs.recommended,
