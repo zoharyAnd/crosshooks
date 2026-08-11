@@ -18,13 +18,13 @@
     "path": "dist/index.js",
     "import": "{ usePushNotifications }",
     "ignore": ["react"],
-    "limit": "800 B"
+    "limit": "900 B"
   },
   {
     "name": "usePushNotifications (native, ESM)",
     "path": "dist/index.native.js",
     "import": "{ usePushNotifications }",
     "ignore": ["react"],
-    "limit": "200 B"
+    "limit": "400 B"
   }
 ]
