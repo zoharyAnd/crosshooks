@@ -35,10 +35,17 @@ function isStandalone(): boolean {
  */
 export function usePWAInstallPrompt(): PWAInstallPrompt {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [isInstalled, setIsInstalled] = useState<boolean>(() => isStandalone());
+  const [isInstalled, setIsInstalled] = useState(false);
+  // Start `false` so the first client render matches the server render (which
+  // has no `window`), then resolve the real value after mount — this keeps the
+  // hook safe to use in SSR frameworks like Next.js without hydration errors.
+  const [isSupported, setIsSupported] = useState(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
+    setIsSupported(true);
+    setIsInstalled(isStandalone());
 
     const handleBeforeInstallPrompt = (event: Event) => {
       // Prevent the mini-infobar (Chrome) so we control when the prompt shows.
@@ -76,7 +83,7 @@ export function usePWAInstallPrompt(): PWAInstallPrompt {
   return {
     canInstall: deferredPrompt !== null && !isInstalled,
     isInstalled,
-    isSupported: typeof window !== 'undefined',
+    isSupported,
     promptInstall,
   };
 }
