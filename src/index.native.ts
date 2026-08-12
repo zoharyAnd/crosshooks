@@ -15,3 +15,13 @@ export type {
   PushTokenSubscriptionInfo,
   UsePushNotificationsOptions,
 } from './usePushNotifications/types';
+
+export { useOfflineSync } from './useOfflineSync/useOfflineSync.native';
+export type {
+  OfflineSync,
+  UseOfflineSyncOptions,
+  SyncItem,
+  SyncResult,
+  SyncStorage,
+  ConnectivitySource,
+} from './useOfflineSync/types';

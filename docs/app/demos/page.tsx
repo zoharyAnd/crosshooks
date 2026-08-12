@@ -48,6 +48,23 @@ export default function Demos() {
             Open push notification demo →
           </span>
         </Link>
+
+        <Link
+          href="/demos/offline-sync"
+          className="group rounded-xl border border-line bg-inset p-5 transition-colors hover:border-accent"
+        >
+          <code className="font-mono text-base font-semibold text-fg">
+            useOfflineSync
+          </code>
+          <p className="mt-2 text-sm leading-6 text-muted">
+            Toggle offline, queue changes, and watch them drain in order when you
+            reconnect. The <code className="font-mono">pending</code> queue is persisted,
+            so it survives a reload.
+          </p>
+          <span className="mt-3 inline-block text-sm font-semibold text-accent group-hover:underline">
+            Open offline sync demo →
+          </span>
+        </Link>
       </section>
     </article>
   );

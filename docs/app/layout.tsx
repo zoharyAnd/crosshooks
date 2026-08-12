@@ -68,6 +68,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
 
                 <Link
+                  href="/offline-sync"
+                  className="block font-semibold text-fg hover:text-accent mt-4"
+                >
+                  Offline sync
+                </Link>
+
+                <Link
                   href="/demos"
                   className="block font-semibold text-fg hover:text-accent mt-4 mb-2"
                 >
@@ -85,6 +92,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     className="text-muted hover:text-accent"
                   >
                     Push notifications
+                  </Link>
+                  <Link
+                    href="/demos/offline-sync"
+                    className="text-muted hover:text-accent"
+                  >
+                    Offline sync
                   </Link>
                 </div>
 

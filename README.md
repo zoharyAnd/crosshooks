@@ -240,6 +240,85 @@ function NotificationsToggle() {
 | `subscribe`         | `() => Promise<PushSubscription\|null>` | Ensures permission, then subscribes. `null` if refused/unsupported.                                                                |
 | `unsubscribe`       | `() => Promise<boolean>`                | Cancels the active subscription.                                                                                                   |
 
+### `useOfflineSync`
+
+A persistent, connectivity-aware queue for mutations made while offline. Enqueue
+writes as they happen; they are stored locally and drained through your `onSync`
+handler when the device comes back online — with per-item attempt tracking and
+order-preserving retries. On web, connectivity (`navigator.onLine`) and
+persistence (`localStorage`) work out of the box; on React Native you inject
+them, keeping one identical API on every platform.
+
+```tsx
+import { useOfflineSync } from '@zoharyandrianome/crosshooks';
+
+function TodoComposer() {
+  const sync = useOfflineSync<{ title: string }>({
+    onSync: async (todo) => {
+      // The network write that was unavailable offline.
+      await fetch('/api/todos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(todo),
+      });
+    },
+  });
+
+  return (
+    <>
+      <button onClick={() => sync.enqueue({ title: 'Buy milk' })}>Add todo</button>
+      {!sync.isOnline && <p>Offline — {sync.pending.length} change(s) queued.</p>}
+      {sync.error && <button onClick={() => sync.flush()}>Retry</button>}
+    </>
+  );
+}
+```
+
+Resolve from `onSync` to mark an item synced; throw to keep it queued. A flush
+processes items in enqueue order and stops on the first failure, so a failed
+write never lets a later one jump ahead of it. Auto-flush on reconnect is on by
+default.
+
+On **React Native**, inject persistence and connectivity (crosshooks pulls in no
+native dependencies of its own):
+
+```tsx
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import NetInfo from '@react-native-community/netinfo';
+import type { ConnectivitySource } from '@zoharyandrianome/crosshooks';
+
+const connectivity: ConnectivitySource = {
+  getSnapshot: () => lastKnownOnline, // seed from NetInfo.fetch() at startup
+  subscribe: (onChange) =>
+    NetInfo.addEventListener((state) => onChange(state.isConnected ?? false)),
+};
+
+const sync = useOfflineSync({ onSync, storage: AsyncStorage, connectivity });
+```
+
+#### Options
+
+| Option                 | Type                         | Description                                                             |
+| ---------------------- | ---------------------------- | ----------------------------------------------------------------------- |
+| `onSync`               | `(payload, item) => unknown` | Processes one queued item. Resolve to sync it; throw to retry later.    |
+| `storageKey`           | `string`                     | Persistence key. Defaults to `crosshooks:offline-sync`.                 |
+| `storage`              | `SyncStorage`                | Adapter. Defaults to `localStorage` on web; inject AsyncStorage native. |
+| `connectivity`         | `ConnectivitySource`         | Online/offline source. Defaults to `navigator.onLine` on web.           |
+| `autoFlushOnReconnect` | `boolean`                    | Flush automatically when connectivity returns. Defaults to `true`.      |
+
+#### Returns
+
+| Field       | Type                        | Description                                                     |
+| ----------- | --------------------------- | --------------------------------------------------------------- |
+| `isOnline`  | `boolean`                   | Whether the device is online. Optimistically `true` during SSR. |
+| `pending`   | `SyncItem<T>[]`             | Queued items awaiting sync, in enqueue order.                   |
+| `isSyncing` | `boolean`                   | `true` while a flush pass is running.                           |
+| `error`     | `Error \| null`             | Most recent sync error, cleared once the queue drains.          |
+| `enqueue`   | `(payload) => SyncItem<T>`  | Queue a payload; schedules a flush when online.                 |
+| `flush`     | `() => Promise<SyncResult>` | Drain the queue now. No-ops while offline or already syncing.   |
+| `remove`    | `(id: string) => void`      | Drop a single queued item without syncing it.                   |
+| `clear`     | `() => void`                | Discard every queued item without syncing.                      |
+
 ## How the cross-platform build works
 
 Each hook has two source implementations — `*.web.ts` and `*.native.ts` —
