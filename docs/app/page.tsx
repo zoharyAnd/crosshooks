@@ -128,6 +128,29 @@ pnpm add @zoharyandrianome/crosshooks`}
               </span>
             </div>
           </div>
+
+          <div className="rounded-xl border border-line bg-inset p-5">
+            <div className="mb-2 flex flex-wrap items-center gap-2">
+              <code className="font-mono text-base font-semibold text-fg">
+                useOfflineSync
+              </code>
+              <span className="rounded-full border border-line px-2 py-0.5 text-[11px] uppercase tracking-[0.08em] text-accent">
+                Web &amp; native
+              </span>
+            </div>
+            <p className="text-sm leading-6 text-muted">
+              A persistent, connectivity-aware queue for mutations made while offline.
+              Writes are stored as they happen and drained through your{' '}
+              <code className="font-mono">onSync</code> handler when the device
+              reconnects, with order-preserving retries.
+            </p>
+            <Link
+              href="/offline-sync"
+              className="mt-3 inline-block text-sm font-semibold text-accent hover:underline"
+            >
+              Offline sync guide →
+            </Link>
+          </div>
         </div>
       </section>
     </article>

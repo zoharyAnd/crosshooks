@@ -26,5 +26,19 @@
     "import": "{ usePushNotifications }",
     "ignore": ["react"],
     "limit": "400 B"
+  },
+  {
+    "name": "useOfflineSync (web, ESM)",
+    "path": "dist/index.js",
+    "import": "{ useOfflineSync }",
+    "ignore": ["react"],
+    "limit": "1.2 KB"
+  },
+  {
+    "name": "useOfflineSync (native, ESM)",
+    "path": "dist/index.native.js",
+    "import": "{ useOfflineSync }",
+    "ignore": ["react"],
+    "limit": "1 KB"
   }
 ]
