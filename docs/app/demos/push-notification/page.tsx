@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { usePushNotifications } from '@zoharyandrianome/crosshooks';
-import { StateRow } from './StateRow';
-import { VAPID_PUBLIC_KEY } from './vapid';
+import { StateRow } from '../StateRow';
+import { VAPID_PUBLIC_KEY } from '../vapid';
 
-export function PushCard() {
+export default function Page() {
   const { isSupported, permission, subscription, isSubscribed, subscribe, unsubscribe } =
     usePushNotifications({ applicationServerKey: VAPID_PUBLIC_KEY });
   const [busy, setBusy] = useState(false);

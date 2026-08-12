@@ -40,6 +40,9 @@
     "*": {
       "firebase": [
         "./dist/firebase.d.ts"
+      ],
+      "onesignal": [
+        "./dist/onesignal.d.ts"
       ]
     }
   },
@@ -74,6 +77,21 @@
         "default": "./dist/firebase.cjs"
       }
     },
+    "./onesignal": {
+      "react-native": {
+        "types": "./dist/onesignal.native.d.ts",
+        "import": "./dist/onesignal.native.js",
+        "require": "./dist/onesignal.native.cjs"
+      },
+      "import": {
+        "types": "./dist/onesignal.d.ts",
+        "default": "./dist/onesignal.js"
+      },
+      "require": {
+        "types": "./dist/onesignal.d.cts",
+        "default": "./dist/onesignal.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -89,6 +107,7 @@
     "format:check": "prettier --check .",
     "size": "size-limit",
     "check:package": "publint && attw --pack .",
+    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test:coverage && pnpm build && pnpm check:package && pnpm size",
     "prepublishOnly": "pnpm build",
     "release": "changeset publish"
   },
@@ -98,7 +117,9 @@
     "firebase": "^12.0.0",
     "react": ">=16.8.0",
     "react-native": ">=0.60.0",
-    "react-native-permissions": "^5.0.0"
+    "react-native-onesignal": "^5.0.0",
+    "react-native-permissions": "^5.0.0",
+    "react-onesignal": "^3.0.0"
   },
   "peerDependenciesMeta": {
     "@react-native-firebase/app": {
@@ -113,7 +134,13 @@
     "react-native": {
       "optional": true
     },
+    "react-native-onesignal": {
+      "optional": true
+    },
     "react-native-permissions": {
+      "optional": true
+    },
+    "react-onesignal": {
       "optional": true
     }
   },
@@ -138,7 +165,9 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-native": "0.76.9",
+    "react-native-onesignal": "^5.5.6",
     "react-native-permissions": "^5.6.1",
+    "react-onesignal": "^3.5.6",
     "size-limit": "^11.0.0",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",

@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { usePWAInstallPrompt } from '@zoharyandrianome/crosshooks';
-import { StateRow } from './StateRow';
+import { StateRow } from '../StateRow';
 
-export function InstallCard() {
+export default function Page() {
   const { canInstall, isInstalled, isSupported, promptInstall } = usePWAInstallPrompt();
   const [lastOutcome, setLastOutcome] = useState<string | null>(null);
 

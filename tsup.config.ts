@@ -6,6 +6,8 @@ export default defineConfig({
     'index.native': 'src/index.native.ts',
     firebase: 'src/providers/firebase/firebase.web.ts',
     'firebase.native': 'src/providers/firebase/firebase.native.ts',
+    onesignal: 'src/providers/onesignal/onesignal.web.ts',
+    'onesignal.native': 'src/providers/onesignal/onesignal.native.ts',
   },
   format: ['esm', 'cjs'],
   dts: true,
@@ -22,6 +24,8 @@ export default defineConfig({
     '@react-native-firebase/app',
     '@react-native-firebase/messaging',
     'react-native-permissions',
+    'react-onesignal',
+    'react-native-onesignal',
   ],
   outExtension({ format }) {
     return { js: format === 'cjs' ? '.cjs' : '.js' };

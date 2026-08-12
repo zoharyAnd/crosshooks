@@ -30,33 +30,62 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 >
                   Getting started
                 </Link>
-                <p className="mb-2 mt-5 font-semibold text-[#e8ecf8]">Providers</p>
+                <Link
+                  href="/pwa-install"
+                  className="block font-semibold text-[#e8ecf8] hover:text-[#6ea8fe] mt-4"
+                >
+                  PWA install
+                </Link>
+                <Link
+                  href="/push-notifications"
+                  className="block font-semibold text-[#e8ecf8] hover:text-[#6ea8fe] mt-4"
+                >
+                  Push notifications
+                </Link>
                 <div className="ml-2 flex flex-col gap-2 border-l border-[#263050] pl-3">
-                  <Link
-                    href="/provider/firebase"
-                    className="text-[#93a0c4] hover:text-[#6ea8fe]"
-                  >
-                    Firebase provider
-                  </Link>
-                  <Link
-                    href="/provider/onesignal"
-                    className="text-[#93a0c4] hover:text-[#6ea8fe]"
-                  >
-                    OneSignal provider
-                  </Link>
-                  <Link
-                    href="/provider/expo"
-                    className="text-[#93a0c4] hover:text-[#6ea8fe]"
-                  >
-                    Expo provider
-                  </Link>
+                  <p className="mb-2 mt-4 font-semibold text-[#e8ecf8]">Providers</p>
+                  <div className="ml-2 flex flex-col gap-2 border-l border-[#263050] pl-3">
+                    <Link
+                      href="/provider/firebase"
+                      className="text-[#93a0c4] hover:text-[#6ea8fe]"
+                    >
+                      Firebase provider
+                    </Link>
+                    <Link
+                      href="/provider/onesignal"
+                      className="text-[#93a0c4] hover:text-[#6ea8fe]"
+                    >
+                      OneSignal provider
+                    </Link>
+                    <Link
+                      href="/provider/expo"
+                      className="text-[#93a0c4] hover:text-[#6ea8fe]"
+                    >
+                      Expo provider
+                    </Link>
+                  </div>
                 </div>
+
                 <Link
                   href="/demos"
-                  className="block font-semibold text-[#e8ecf8] hover:text-[#6ea8fe] mt-4"
+                  className="block font-semibold text-[#e8ecf8] hover:text-[#6ea8fe] mt-4 mb-2"
                 >
                   Demos
                 </Link>
+                <div className="ml-2 flex flex-col gap-2 border-l border-[#263050] pl-3">
+                  <Link
+                    href="/demos/pwa-install"
+                    className="text-[#93a0c4] hover:text-[#6ea8fe]"
+                  >
+                    PWA install
+                  </Link>
+                  <Link
+                    href="/demos/push-notification"
+                    className="text-[#93a0c4] hover:text-[#6ea8fe]"
+                  >
+                    Push notifications (web only)
+                  </Link>
+                </div>
               </nav>
             </aside>
 

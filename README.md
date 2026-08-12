@@ -74,6 +74,14 @@ from one hook, and get a serializable subscription to send to your server. On
 React Native it's a safe no-op (native push rides on APNs/FCM via platform SDKs),
 so the same UI compiles everywhere.
 
+> **This hook subscribes; it does not send.** It runs on the client and only
+> manages permission and the device subscription (`subscribe`, `unsubscribe`,
+> `requestPermission`). Actually delivering a notification happens from your
+> **backend** — persist the subscription this hook returns, then push to it
+> server-side (e.g. with [`web-push`](https://github.com/web-push-libs/web-push),
+> or via a provider's servers such as Firebase/OneSignal). Sending requires your
+> VAPID **private** key, which must never ship to the browser.
+
 ```tsx
 import { usePushNotifications } from '@zoharyandrianome/crosshooks';
 
@@ -115,7 +123,7 @@ as `applicationServerKey` — Chromium browsers require it to subscribe.
 For the React Native implementation, you can opt for one of the providers below:
 
 - Firebase
-- OneSignal (coming soon)
+- OneSignal
 - Expo (coming soon)
 
 #### Firebase provider
@@ -137,6 +145,40 @@ import { firebaseProvider } from '@zoharyandrianome/crosshooks/firebase';
 const provider = firebaseProvider({
   firebaseConfig: {/* apiKey, projectId, messagingSenderId, appId, … */},
   vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY!,
+});
+
+function NotificationsToggle() {
+  const { isSupported, isSubscribed, subscribe, unsubscribe } = usePushNotifications({
+    provider,
+  });
+
+  if (!isSupported) return null;
+
+  return (
+    <button onClick={() => (isSubscribed ? unsubscribe() : subscribe())}>
+      {isSubscribed ? 'Disable notifications' : 'Enable notifications'}
+    </button>
+  );
+}
+```
+
+#### OneSignal provider
+
+OneSignal is an optional provider for web, React Native iOS, and Android.
+Follow the [step-by-step OneSignal setup guide](https://crosshooks-demo.vercel.app/docs/provider/onesignal)
+for SDK installation, the App ID, service workers, and native files.
+
+Import the provider from the `/onesignal` subpath and pass it to
+`usePushNotifications`. The bundler picks the web or native adapter
+automatically; both take the same `{ appId }` config, and OneSignal manages the
+subscription (opt-in / opt-out) and reports its subscription ID as the token.
+
+```tsx
+import { usePushNotifications } from '@zoharyandrianome/crosshooks';
+import { oneSignalProvider } from '@zoharyandrianome/crosshooks/onesignal';
+
+const provider = oneSignalProvider({
+  appId: process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID!,
 });
 
 function NotificationsToggle() {
