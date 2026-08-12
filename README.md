@@ -298,26 +298,26 @@ const sync = useOfflineSync({ onSync, storage: AsyncStorage, connectivity });
 
 #### Options
 
-| Option                 | Type                          | Description                                                              |
-| ---------------------- | ----------------------------- | ------------------------------------------------------------------------ |
-| `onSync`               | `(payload, item) => unknown`  | Processes one queued item. Resolve to sync it; throw to retry later.     |
-| `storageKey`           | `string`                      | Persistence key. Defaults to `crosshooks:offline-sync`.                  |
-| `storage`              | `SyncStorage`                 | Adapter. Defaults to `localStorage` on web; inject AsyncStorage native.  |
-| `connectivity`         | `ConnectivitySource`          | Online/offline source. Defaults to `navigator.onLine` on web.           |
-| `autoFlushOnReconnect` | `boolean`                     | Flush automatically when connectivity returns. Defaults to `true`.      |
+| Option                 | Type                         | Description                                                             |
+| ---------------------- | ---------------------------- | ----------------------------------------------------------------------- |
+| `onSync`               | `(payload, item) => unknown` | Processes one queued item. Resolve to sync it; throw to retry later.    |
+| `storageKey`           | `string`                     | Persistence key. Defaults to `crosshooks:offline-sync`.                 |
+| `storage`              | `SyncStorage`                | Adapter. Defaults to `localStorage` on web; inject AsyncStorage native. |
+| `connectivity`         | `ConnectivitySource`         | Online/offline source. Defaults to `navigator.onLine` on web.           |
+| `autoFlushOnReconnect` | `boolean`                    | Flush automatically when connectivity returns. Defaults to `true`.      |
 
 #### Returns
 
-| Field       | Type                          | Description                                                       |
-| ----------- | ----------------------------- | ---------------------------------------------------------------- |
-| `isOnline`  | `boolean`                     | Whether the device is online. Optimistically `true` during SSR. |
-| `pending`   | `SyncItem<T>[]`               | Queued items awaiting sync, in enqueue order.                    |
-| `isSyncing` | `boolean`                     | `true` while a flush pass is running.                            |
-| `error`     | `Error \| null`               | Most recent sync error, cleared once the queue drains.          |
-| `enqueue`   | `(payload) => SyncItem<T>`    | Queue a payload; schedules a flush when online.                  |
-| `flush`     | `() => Promise<SyncResult>`   | Drain the queue now. No-ops while offline or already syncing.    |
-| `remove`    | `(id: string) => void`        | Drop a single queued item without syncing it.                    |
-| `clear`     | `() => void`                  | Discard every queued item without syncing.                       |
+| Field       | Type                        | Description                                                     |
+| ----------- | --------------------------- | --------------------------------------------------------------- |
+| `isOnline`  | `boolean`                   | Whether the device is online. Optimistically `true` during SSR. |
+| `pending`   | `SyncItem<T>[]`             | Queued items awaiting sync, in enqueue order.                   |
+| `isSyncing` | `boolean`                   | `true` while a flush pass is running.                           |
+| `error`     | `Error \| null`             | Most recent sync error, cleared once the queue drains.          |
+| `enqueue`   | `(payload) => SyncItem<T>`  | Queue a payload; schedules a flush when online.                 |
+| `flush`     | `() => Promise<SyncResult>` | Drain the queue now. No-ops while offline or already syncing.   |
+| `remove`    | `(id: string) => void`      | Drop a single queued item without syncing it.                   |
+| `clear`     | `() => void`                | Discard every queued item without syncing.                      |
 
 ## How the cross-platform build works
 

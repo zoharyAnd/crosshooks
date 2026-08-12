@@ -10,11 +10,11 @@ export default function OfflineSync() {
         </span>
         <h1 className="mb-3 text-3xl font-bold">Offline sync</h1>
         <p className="text-sm leading-6 text-muted">
-          A persistent, connectivity-aware queue for mutations made while offline.
-          Enqueue writes as they happen; they are stored locally and drained through
-          your <code className="font-mono">onSync</code> handler when the device comes
-          back online. On web, connectivity and persistence work out of the box; on
-          React Native you inject them, keeping the same API on every platform.
+          A persistent, connectivity-aware queue for mutations made while offline. Enqueue
+          writes as they happen; they are stored locally and drained through your{' '}
+          <code className="font-mono">onSync</code> handler when the device comes back
+          online. On web, connectivity and persistence work out of the box; on React
+          Native you inject them, keeping the same API on every platform.
         </p>
       </header>
 
@@ -71,8 +71,8 @@ function TodoComposer() {
           Read <code className="font-mono">isOnline</code>,{' '}
           <code className="font-mono">pending</code>, and{' '}
           <code className="font-mono">isSyncing</code> to keep your UI honest about
-          unsynced work. All three are SSR-safe: the first render is optimistically
-          online with an empty queue, then resolves after mount.
+          unsynced work. All three are SSR-safe: the first render is optimistically online
+          with an empty queue, then resolves after mount.
         </p>
         <CodeBlock
           lang="tsx"
@@ -109,10 +109,9 @@ function TodoComposer() {
 
       <Step number={5} title="Persistence on web">
         <p>
-          On web the queue is persisted to{' '}
-          <code className="font-mono">localStorage</code> automatically, so it survives a
-          reload or a closed tab. Set a <code className="font-mono">storageKey</code> to
-          keep separate queues apart:
+          On web the queue is persisted to <code className="font-mono">localStorage</code>{' '}
+          automatically, so it survives a reload or a closed tab. Set a{' '}
+          <code className="font-mono">storageKey</code> to keep separate queues apart:
         </p>
         <CodeBlock
           lang="tsx"
@@ -133,9 +132,9 @@ function TodoComposer() {
           <code className="font-mono">navigator.onLine</code>, and crosshooks stays
           dependency-free, so you inject both. Pass{' '}
           <code className="font-mono">storage</code> to persist across app launches and{' '}
-          <code className="font-mono">connectivity</code> to react to the network.
-          Omit them and the queue lives in memory with the device assumed online — the
-          return shape is identical to web, so shared components work unchanged.
+          <code className="font-mono">connectivity</code> to react to the network. Omit
+          them and the queue lives in memory with the device assumed online — the return
+          shape is identical to web, so shared components work unchanged.
         </p>
         <CodeBlock
           lang="tsx"
@@ -179,7 +178,9 @@ const sync = useOfflineSync({
               <tr>
                 <td className="font-mono text-fg">onSync</td>
                 <td className="font-mono text-xs">(payload, item) =&gt; unknown</td>
-                <td>Processes one queued item. Resolve to sync it; throw to retry later.</td>
+                <td>
+                  Processes one queued item. Resolve to sync it; throw to retry later.
+                </td>
               </tr>
               <tr>
                 <td className="font-mono text-fg">storageKey</td>
@@ -192,7 +193,9 @@ const sync = useOfflineSync({
               <tr>
                 <td className="font-mono text-fg">storage</td>
                 <td className="font-mono text-xs">SyncStorage</td>
-                <td>Adapter. Defaults to localStorage on web; inject AsyncStorage on native.</td>
+                <td>
+                  Adapter. Defaults to localStorage on web; inject AsyncStorage on native.
+                </td>
               </tr>
               <tr>
                 <td className="font-mono text-fg">connectivity</td>
