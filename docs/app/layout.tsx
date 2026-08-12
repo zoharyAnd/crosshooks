@@ -31,10 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 aria-label="Documentation navigation"
                 className="rounded-xl border border-line bg-surface p-4 text-sm"
               >
-                <Link
-                  href="/"
-                  className="block font-semibold text-fg hover:text-accent"
-                >
+                <Link href="/" className="block font-semibold text-fg hover:text-accent">
                   Getting started
                 </Link>
                 <Link
@@ -64,10 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     >
                       OneSignal provider
                     </Link>
-                    <Link
-                      href="/provider/expo"
-                      className="text-muted hover:text-accent"
-                    >
+                    <Link href="/provider/expo" className="text-muted hover:text-accent">
                       Expo provider
                     </Link>
                   </div>

@@ -1,8 +1,6 @@
 function toneFor(value: boolean | string): string {
   if (typeof value === 'boolean') {
-    return value
-      ? 'bg-emerald-400/15 text-success'
-      : 'bg-slate-500/[0.18] text-neutral';
+    return value ? 'bg-emerald-400/15 text-success' : 'bg-slate-500/[0.18] text-neutral';
   }
   if (value === 'granted') return 'bg-emerald-400/15 text-success';
   if (value === 'denied') return 'bg-slate-500/[0.18] text-neutral';

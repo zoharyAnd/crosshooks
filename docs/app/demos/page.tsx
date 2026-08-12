@@ -9,9 +9,9 @@ export default function Demos() {
         </span>
         <h1 className="mb-3 text-3xl font-bold">Live demos</h1>
         <p className="max-w-2xl text-sm leading-6 text-muted">
-          Each demo runs the real hook in your browser so you can watch its state change as
-          you interact. Open one on desktop Chrome or Edge, or on a mobile browser, to see
-          how the same code behaves across platforms.
+          Each demo runs the real hook in your browser so you can watch its state change
+          as you interact. Open one on desktop Chrome or Edge, or on a mobile browser, to
+          see how the same code behaves across platforms.
         </p>
       </header>
 
@@ -24,8 +24,8 @@ export default function Demos() {
             usePWAInstallPrompt
           </code>
           <p className="mt-2 text-sm leading-6 text-muted">
-            Trigger the &ldquo;Add to Home Screen&rdquo; flow from your own button and watch{' '}
-            <code className="font-mono">canInstall</code> and{' '}
+            Trigger the &ldquo;Add to Home Screen&rdquo; flow from your own button and
+            watch <code className="font-mono">canInstall</code> and{' '}
             <code className="font-mono">isInstalled</code> update live.
           </p>
           <span className="mt-3 inline-block text-sm font-semibold text-accent group-hover:underline">
