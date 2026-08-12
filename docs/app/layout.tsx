@@ -83,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     href="/demos/push-notification"
                     className="text-[#93a0c4] hover:text-[#6ea8fe]"
                   >
-                    Push notifications (web only)
+                    Push notifications
                   </Link>
                 </div>
               </nav>

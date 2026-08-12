@@ -8,6 +8,8 @@ export default defineConfig({
     'firebase.native': 'src/providers/firebase/firebase.native.ts',
     onesignal: 'src/providers/onesignal/onesignal.web.ts',
     'onesignal.native': 'src/providers/onesignal/onesignal.native.ts',
+    expo: 'src/providers/expo/expo.web.ts',
+    'expo.native': 'src/providers/expo/expo.native.ts',
   },
   format: ['esm', 'cjs'],
   dts: true,
@@ -26,6 +28,7 @@ export default defineConfig({
     'react-native-permissions',
     'react-onesignal',
     'react-native-onesignal',
+    'expo-notifications',
   ],
   outExtension({ format }) {
     return { js: format === 'cjs' ? '.cjs' : '.js' };

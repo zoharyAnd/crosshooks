@@ -51,6 +51,7 @@ export default function Page() {
         <h2 className="mb-2.5 text-[26px] font-bold">
           <code className="font-mono">usePushNotifications</code>
         </h2>
+        <h3 className="text-[20px] font-bold">Web demo</h3>
         <p className="leading-6 text-[#93a0c4]">
           One cross-platform hook for the Web Push lifecycle — permission, subscribe,
           unsubscribe. A safe no-op on React Native.

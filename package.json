@@ -43,6 +43,9 @@
       ],
       "onesignal": [
         "./dist/onesignal.d.ts"
+      ],
+      "expo": [
+        "./dist/expo.d.ts"
       ]
     }
   },
@@ -92,6 +95,21 @@
         "default": "./dist/onesignal.cjs"
       }
     },
+    "./expo": {
+      "react-native": {
+        "types": "./dist/expo.native.d.ts",
+        "import": "./dist/expo.native.js",
+        "require": "./dist/expo.native.cjs"
+      },
+      "import": {
+        "types": "./dist/expo.d.ts",
+        "default": "./dist/expo.js"
+      },
+      "require": {
+        "types": "./dist/expo.d.cts",
+        "default": "./dist/expo.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -114,6 +132,7 @@
   "peerDependencies": {
     "@react-native-firebase/app": "^25.1.0",
     "@react-native-firebase/messaging": "^25.1.0",
+    "expo-notifications": ">=0.27.0",
     "firebase": "^12.0.0",
     "react": ">=16.8.0",
     "react-native": ">=0.60.0",
@@ -126,6 +145,9 @@
       "optional": true
     },
     "@react-native-firebase/messaging": {
+      "optional": true
+    },
+    "expo-notifications": {
       "optional": true
     },
     "firebase": {
@@ -158,6 +180,7 @@
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^5.0.0",
+    "expo-notifications": "^57.0.10",
     "firebase": "^12.17.1",
     "jsdom": "^25.0.1",
     "prettier": "^3.3.0",
