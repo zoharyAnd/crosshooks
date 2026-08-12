@@ -9,7 +9,7 @@
 
 [Browse the full documentation](https://crosshooks-demo.vercel.app)
 
-[Try the live demo](https://crosshooks-demo.vercel.app/demos)
+[Try the live demos](https://crosshooks-demo.vercel.app/demos)
 
 `crosshooks` provides consistent typed APIs across web and React Native.  
 Browser
