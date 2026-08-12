@@ -1,5 +1,22 @@
 # @zoharyandrianome/crosshooks
 
+## 0.3.0
+
+### Minor Changes
+
+- 57986e7: Add an Expo push provider. Import `expoProvider` from
+  `@zoharyandrianome/crosshooks/expo` and pass it to `usePushNotifications` on
+  iOS, Android, and the web. Both platforms take the same `{ projectId }` config;
+  the adapter drives `expo-notifications` — requesting permission, registering the
+  device, and reporting the Expo push token (`ExponentPushToken[…]`) as the push
+  token. `expo-notifications` is an optional peer dependency.
+- bd1a487: Add a OneSignal push provider. Import `oneSignalProvider` from
+  `@zoharyandrianome/crosshooks/onesignal` and pass it to `usePushNotifications`
+  on web, iOS, and Android. Both platforms take the same `{ appId }` config; the
+  adapter drives OneSignal's opt-in / opt-out subscription model and reports the
+  OneSignal subscription ID as the push token. `react-onesignal` (web) and
+  `react-native-onesignal` (native) are optional peer dependencies.
+
 ## 0.2.0
 
 ### Minor Changes
