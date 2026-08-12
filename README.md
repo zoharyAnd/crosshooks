@@ -11,10 +11,7 @@
 
 [Try the live demos](https://crosshooks-demo.vercel.app/demos)
 
-`crosshooks` provides consistent typed APIs across web and React Native.  
-Browser
-features use standards-based web implementations.  
-Native push notifications can be enabled through optional provider adapters; unsupported browser-only features return a safe no-op state so shared components can check `isSupported`.
+Typed React hooks for device features that normally behave differently on web, iOS, and Android. Each hook exposes one consistent API, so the same component can run everywhere without branching on the platform.
 
 ## Install
 
@@ -124,7 +121,7 @@ For the React Native implementation, you can opt for one of the providers below:
 
 - Firebase
 - OneSignal
-- Expo (coming soon)
+- Expo
 
 #### Firebase provider
 
@@ -179,6 +176,41 @@ import { oneSignalProvider } from '@zoharyandrianome/crosshooks/onesignal';
 
 const provider = oneSignalProvider({
   appId: process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID!,
+});
+
+function NotificationsToggle() {
+  const { isSupported, isSubscribed, subscribe, unsubscribe } = usePushNotifications({
+    provider,
+  });
+
+  if (!isSupported) return null;
+
+  return (
+    <button onClick={() => (isSubscribed ? unsubscribe() : subscribe())}>
+      {isSubscribed ? 'Disable notifications' : 'Enable notifications'}
+    </button>
+  );
+}
+```
+
+#### Expo provider
+
+Expo is an optional provider for web, React Native iOS, and Android.
+Follow the [step-by-step Expo setup guide](https://crosshooks-demo.vercel.app/docs/provider/expo)
+for SDK installation, the EAS project ID, service workers, and native files.
+
+Import the provider from the `/expo` subpath and pass it to
+`usePushNotifications`. The bundler picks the web or native adapter
+automatically; both take the same `{ projectId }` config, and Expo issues its
+push token as the subscription. The EAS `projectId` is optional in managed
+development and required in bare and production builds.
+
+```tsx
+import { usePushNotifications } from '@zoharyandrianome/crosshooks';
+import { expoProvider } from '@zoharyandrianome/crosshooks/expo';
+
+const provider = expoProvider({
+  projectId: process.env.EXPO_PUBLIC_EAS_PROJECT_ID!,
 });
 
 function NotificationsToggle() {
