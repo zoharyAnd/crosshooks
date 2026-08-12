@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --bg: #f6f8fd;
+  --glow: #dbe4ff;
+  --fg: #1b2138;
+  --muted: #55608a;
+  --line: #dce2f0;
+  --surface: #ffffff;
+  --inset: #eef2fb;
+  --accent: #2f6fed;
+  --on-accent: #f4f8ff;
+  --success: #059669;
+  --danger: #dc2626;
+  --neutral: #64748b;
+  --warn-bg: #fdf6e3;
+  --warn-border: #e6cf7a;
+  --warn-text: #7a4f0a;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #0b1020;
+  --glow: #1b2547;
+  --fg: #e8ecf8;
+  --muted: #93a0c4;
+  --line: #263050;
+  --surface: #141a2e;
+  --inset: #0d1117;
+  --accent: #6ea8fe;
+  --on-accent: #06122b;
+  --success: #34d399;
+  --danger: #fca5a5;
+  --neutral: #64748b;
+  --warn-bg: rgba(251, 191, 36, 0.1);
+  --warn-border: rgba(251, 191, 36, 0.3);
+  --warn-text: #fde68a;
+}
+
+/* Shiki dual-theme: pick the token colors that match the active theme. */
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+}
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark);
+}
+
+body {
+  background-color: var(--bg);
+  background-image: radial-gradient(
+    1200px 600px at 50% -10%,
+    var(--glow) 0%,
+    transparent 60%
+  );
+  color: var(--fg);
+}

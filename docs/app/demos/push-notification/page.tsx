@@ -43,16 +43,16 @@ export default function Page() {
   const disabled = !isSupported || permission === 'denied' || busy;
 
   return (
-    <div className="w-full max-w-[520px] rounded-[18px] border border-[#263050] bg-[#141a2e] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+    <div className="w-full max-w-[520px] rounded-[18px] border border-line bg-surface p-8 shadow-[0_20px_60px_rgba(0,0,0,0.10)]">
       <header className="mb-6">
-        <span className="mb-3.5 inline-block rounded-full border border-[#263050] px-2.5 py-1 text-xs uppercase tracking-[0.08em] text-[#6ea8fe]">
+        <span className="mb-3.5 inline-block rounded-full border border-line px-2.5 py-1 text-xs uppercase tracking-[0.08em] text-accent">
           crosshooks
         </span>
         <h2 className="mb-2.5 text-[26px] font-bold">
           <code className="font-mono">usePushNotifications</code>
         </h2>
         <h3 className="text-[20px] font-bold">Web demo</h3>
-        <p className="leading-6 text-[#93a0c4]">
+        <p className="leading-6 text-muted">
           One cross-platform hook for the Web Push lifecycle — permission, subscribe,
           unsubscribe. A safe no-op on React Native.
         </p>
@@ -69,7 +69,7 @@ export default function Page() {
 
       <section className="flex flex-col gap-3">
         <button
-          className="w-full cursor-pointer rounded-xl bg-[#6ea8fe] px-[18px] py-3.5 font-semibold text-[#06122b] transition-[transform,opacity] duration-200 enabled:hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-[0.45]"
+          className="w-full cursor-pointer rounded-xl bg-accent px-[18px] py-3.5 font-semibold text-on-accent transition-[transform,opacity] duration-200 enabled:hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-[0.45]"
           onClick={toggle}
           disabled={disabled}
         >
@@ -82,7 +82,7 @@ export default function Page() {
 
         {isSubscribed && (
           <button
-            className="w-full cursor-pointer rounded-xl bg-[#6ea8fe] px-[18px] py-3.5 font-semibold text-[#06122b] transition-[transform,opacity] duration-200 enabled:hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-[0.45]"
+            className="w-full cursor-pointer rounded-xl bg-accent px-[18px] py-3.5 font-semibold text-on-accent transition-[transform,opacity] duration-200 enabled:hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-[0.45]"
             onClick={sendTestPush}
             disabled={busy}
           >
@@ -91,17 +91,17 @@ export default function Page() {
         )}
 
         {subscription && (
-          <p className="text-sm text-[#93a0c4]">
+          <p className="text-sm text-muted">
             Subscribed. {'endpoint' in subscription ? 'Endpoint:' : 'Token:'}
-            <code className="mt-1.5 block break-all font-mono text-[11px] text-[#93a0c4]">
+            <code className="mt-1.5 block break-all font-mono text-[11px] text-muted">
               {'endpoint' in subscription ? subscription.endpoint : subscription.token}
             </code>
           </p>
         )}
-        {error && <p className="text-sm text-[#fca5a5]">⚠ {error}</p>}
+        {error && <p className="text-sm text-danger">⚠ {error}</p>}
       </section>
 
-      <footer className="mt-[22px] border-t border-[#263050] pt-[18px] text-sm leading-6 text-[#93a0c4] [&_p]:m-0">
+      <footer className="mt-[22px] border-t border-line pt-[18px] text-sm leading-6 text-muted [&_p]:m-0">
         {permission === 'denied' ? (
           <p>Notifications are blocked for this site in your browser settings.</p>
         ) : !isSupported ? (

@@ -2,13 +2,13 @@ import { CodeBlock, Step } from '../../components';
 
 export default function OneSignalProviderDocumentation() {
   return (
-    <article className="rounded-[18px] border border-[#263050] bg-[#141a2e] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] sm:p-8">
+    <article className="rounded-[18px] border border-line bg-surface p-6 shadow-[0_20px_60px_rgba(0,0,0,0.10)] sm:p-8">
       <header className="mb-8">
-        <span className="mb-3 inline-block rounded-full border border-[#263050] px-2.5 py-1 text-xs uppercase tracking-[0.08em] text-[#6ea8fe]">
+        <span className="mb-3 inline-block rounded-full border border-line px-2.5 py-1 text-xs uppercase tracking-[0.08em] text-accent">
           Provider guide
         </span>
         <h1 className="mb-3 text-3xl font-bold">OneSignal push notifications</h1>
-        <p className="leading-6 text-[#93a0c4]">
+        <p className="leading-6 text-muted">
           Configure <code className="font-mono">usePushNotifications</code> with OneSignal
           on the web, iOS, and Android. The hook asks for permission and opts the device
           in; OneSignal manages the subscription and returns a subscription ID as the
@@ -101,18 +101,14 @@ function NotificationsButton() {
           the native level. You need a Mac with Xcode installed. Do each action in the
           tool named below.
         </p>
-        <ol className="list-decimal space-y-2 pl-5 marker:text-[#6ea8fe]">
+        <ol className="list-decimal space-y-2 pl-5 marker:text-accent">
           <li>
-            <span className="font-semibold text-[#e8ecf8]">
-              In the Apple Developer portal:
-            </span>{' '}
+            <span className="font-semibold text-fg">In the Apple Developer portal:</span>{' '}
             under <span className="italic">Keys</span>, create an APNs authentication key
             and download the <code className="font-mono">.p8</code> file.
           </li>
           <li>
-            <span className="font-semibold text-[#e8ecf8]">
-              In the OneSignal dashboard:
-            </span>{' '}
+            <span className="font-semibold text-fg">In the OneSignal dashboard:</span>{' '}
             upload that <code className="font-mono">.p8</code> key under{' '}
             <span className="italic">
               Settings → Push &amp; In-App → Apple iOS (APNs)
@@ -120,7 +116,7 @@ function NotificationsButton() {
             . This is what lets OneSignal hand your messages to Apple&apos;s servers.
           </li>
           <li>
-            <span className="font-semibold text-[#e8ecf8]">In Xcode:</span> open{' '}
+            <span className="font-semibold text-fg">In Xcode:</span> open{' '}
             <span className="italic">Signing &amp; Capabilities</span>, click{' '}
             <span className="italic">+ Capability</span>, and add{' '}
             <span className="italic">Push Notifications</span>. Then add{' '}
@@ -128,14 +124,14 @@ function NotificationsButton() {
             <span className="italic">Remote notifications</span>.
           </li>
           <li>
-            <span className="font-semibold text-[#e8ecf8]">In Xcode:</span> add a{' '}
+            <span className="font-semibold text-fg">In Xcode:</span> add a{' '}
             <span className="italic">Notification Service Extension</span> and the
             OneSignal App Group, as described by the React Native OneSignal iOS setup, so
             rich notifications and confirmed delivery work.
           </li>
           <li>
-            <span className="font-semibold text-[#e8ecf8]">In a terminal:</span> install
-            the native pods and rebuild the app.
+            <span className="font-semibold text-fg">In a terminal:</span> install the
+            native pods and rebuild the app.
           </li>
         </ol>
         <CodeBlock lang="bash" code={`cd ios && pod install`} />
@@ -174,17 +170,17 @@ function NotificationsButton() {
           send privileged messages from the client. Send from a trusted backend with the
           OneSignal REST API, targeting the stored subscription ID or external ID.
         </p>
-        <p className="rounded-xl border border-amber-400/30 bg-amber-400/10 p-4 text-amber-200">
+        <p className="rounded-xl border border-warn-border bg-warn-bg p-4 text-warn-text">
           Never expose your OneSignal REST API key, APNs keys, or FCM service-account
           credentials through client environment variables. Only the OneSignal App ID is
           public.
         </p>
       </Step>
 
-      <footer className="border-t border-[#263050] pt-6 text-sm text-[#93a0c4]">
+      <footer className="border-t border-line pt-6 text-sm text-muted">
         Continue with the official{' '}
         <a
-          className="text-[#6ea8fe] hover:underline"
+          className="text-accent hover:underline"
           href="https://documentation.onesignal.com/docs/react-native-sdk-setup"
           target="_blank"
           rel="noopener noreferrer"
@@ -193,7 +189,7 @@ function NotificationsButton() {
         </a>{' '}
         and{' '}
         <a
-          className="text-[#6ea8fe] hover:underline"
+          className="text-accent hover:underline"
           href="https://documentation.onesignal.com/docs/web-push-quickstart"
           target="_blank"
           rel="noopener noreferrer"

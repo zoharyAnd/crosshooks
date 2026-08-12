@@ -2,13 +2,13 @@ import { CodeBlock, Step } from '../../components';
 
 export default function ExpoProviderDocumentation() {
   return (
-    <article className="rounded-[18px] border border-[#263050] bg-[#141a2e] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] sm:p-8">
+    <article className="rounded-[18px] border border-line bg-surface p-6 shadow-[0_20px_60px_rgba(0,0,0,0.10)] sm:p-8">
       <header className="mb-8">
-        <span className="mb-3 inline-block rounded-full border border-[#263050] px-2.5 py-1 text-xs uppercase tracking-[0.08em] text-[#6ea8fe]">
+        <span className="mb-3 inline-block rounded-full border border-line px-2.5 py-1 text-xs uppercase tracking-[0.08em] text-accent">
           Provider guide
         </span>
         <h1 className="mb-3 text-3xl font-bold">Expo push notifications</h1>
-        <p className="leading-6 text-[#93a0c4]">
+        <p className="leading-6 text-muted">
           Configure <code className="font-mono">usePushNotifications</code> with Expo on
           iOS, Android, and the web. The hook asks for permission and registers the
           device; <code className="font-mono">expo-notifications</code> returns an Expo
@@ -124,16 +124,16 @@ function NotificationsButton() {
   -H 'Content-Type: application/json' \\
   -d '{ "to": "ExponentPushToken[…]", "title": "Hello", "body": "World" }'`}
         />
-        <p className="rounded-xl border border-amber-400/30 bg-amber-400/10 p-4 text-amber-200">
+        <p className="rounded-xl border border-warn-border bg-warn-bg p-4 text-warn-text">
           Never expose your APNs keys or FCM service-account credentials through client
           environment variables. Only the Expo project ID is safe to ship in the app.
         </p>
       </Step>
 
-      <footer className="border-t border-[#263050] pt-6 text-sm text-[#93a0c4]">
+      <footer className="border-t border-line pt-6 text-sm text-muted">
         Continue with the official{' '}
         <a
-          className="text-[#6ea8fe] hover:underline"
+          className="text-accent hover:underline"
           href="https://docs.expo.dev/push-notifications/push-notifications-setup/"
           target="_blank"
           rel="noopener noreferrer"
@@ -142,7 +142,7 @@ function NotificationsButton() {
         </a>{' '}
         and the{' '}
         <a
-          className="text-[#6ea8fe] hover:underline"
+          className="text-accent hover:underline"
           href="https://docs.expo.dev/push-notifications/sending-notifications/"
           target="_blank"
           rel="noopener noreferrer"

@@ -2,13 +2,13 @@ import { CodeBlock, Step } from '../../components';
 
 export default function FirebaseProviderDocumentation() {
   return (
-    <article className="rounded-[18px] border border-[#263050] bg-[#141a2e] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] sm:p-8">
+    <article className="rounded-[18px] border border-line bg-surface p-6 shadow-[0_20px_60px_rgba(0,0,0,0.10)] sm:p-8">
       <header className="mb-8">
-        <span className="mb-3 inline-block rounded-full border border-[#263050] px-2.5 py-1 text-xs uppercase tracking-[0.08em] text-[#6ea8fe]">
+        <span className="mb-3 inline-block rounded-full border border-line px-2.5 py-1 text-xs uppercase tracking-[0.08em] text-accent">
           Provider guide
         </span>
         <h1 className="mb-3 text-3xl font-bold">Firebase push notifications</h1>
-        <p className="leading-6 text-[#93a0c4]">
+        <p className="leading-6 text-muted">
           Configure <code className="font-mono">usePushNotifications</code> with Firebase
           Cloud Messaging on the web, iOS, and Android. The hook handles asking for
           permission and getting a device token; the steps below are the one-time Firebase
@@ -113,21 +113,21 @@ function NotificationsButton() {
           cannot create them for you — so this part is manual. You need a Mac with Xcode
           installed. Do each action in the tool named below.
         </p>
-        <ol className="list-decimal space-y-2 pl-5 marker:text-[#6ea8fe]">
+        <ol className="list-decimal space-y-2 pl-5 marker:text-accent">
           <li>
-            <span className="font-semibold text-[#e8ecf8]">In Firebase Console:</span>{' '}
-            download <code className="font-mono">GoogleService-Info.plist</code> from your
-            iOS app&apos;s settings.
+            <span className="font-semibold text-fg">In Firebase Console:</span> download{' '}
+            <code className="font-mono">GoogleService-Info.plist</code> from your iOS
+            app&apos;s settings.
           </li>
           <li>
-            <span className="font-semibold text-[#e8ecf8]">In Xcode:</span> drag that file
-            into the <code className="font-mono">ios</code> project, and confirm it
-            appears under your app target&apos;s{' '}
+            <span className="font-semibold text-fg">In Xcode:</span> drag that file into
+            the <code className="font-mono">ios</code> project, and confirm it appears
+            under your app target&apos;s{' '}
             <span className="italic">Build Phases → Copy Bundle Resources</span> so it
             ships inside the app.
           </li>
           <li>
-            <span className="font-semibold text-[#e8ecf8]">In Xcode:</span> open{' '}
+            <span className="font-semibold text-fg">In Xcode:</span> open{' '}
             <span className="italic">Signing &amp; Capabilities</span>, click{' '}
             <span className="italic">+ Capability</span>, and add{' '}
             <span className="italic">Push Notifications</span>. Then add{' '}
@@ -135,23 +135,21 @@ function NotificationsButton() {
             <span className="italic">Remote notifications</span>.
           </li>
           <li>
-            <span className="font-semibold text-[#e8ecf8]">
-              In the Apple Developer portal:
-            </span>{' '}
+            <span className="font-semibold text-fg">In the Apple Developer portal:</span>{' '}
             under <span className="italic">Keys</span>, create an APNs authentication key
             and download the <code className="font-mono">.p8</code> file.
           </li>
           <li>
-            <span className="font-semibold text-[#e8ecf8]">In Firebase Console:</span>{' '}
-            upload that <code className="font-mono">.p8</code> key under{' '}
+            <span className="font-semibold text-fg">In Firebase Console:</span> upload
+            that <code className="font-mono">.p8</code> key under{' '}
             <span className="italic">
               Project settings → Cloud Messaging → Apple app configuration
             </span>
             . This is what lets Firebase hand your messages to Apple&apos;s servers.
           </li>
           <li>
-            <span className="font-semibold text-[#e8ecf8]">In a terminal:</span> install
-            the native pods and rebuild the app.
+            <span className="font-semibold text-fg">In a terminal:</span> install the
+            native pods and rebuild the app.
           </li>
         </ol>
         <CodeBlock lang="bash" code={`cd ios && pod install`} />
@@ -188,17 +186,17 @@ function NotificationsButton() {
           send privileged messages from the client. Use Firebase Admin SDK or the FCM HTTP
           v1 API in a trusted backend.
         </p>
-        <p className="rounded-xl border border-amber-400/30 bg-amber-400/10 p-4 text-amber-200">
+        <p className="rounded-xl border border-warn-border bg-warn-bg p-4 text-warn-text">
           Never expose service-account credentials, APNs keys, FCM server credentials, or
           provider REST API keys through client environment variables. Only Firebase
           client configuration and the VAPID public key are public.
         </p>
       </Step>
 
-      <footer className="border-t border-[#263050] pt-6 text-sm text-[#93a0c4]">
+      <footer className="border-t border-line pt-6 text-sm text-muted">
         Continue with the official{' '}
         <a
-          className="text-[#6ea8fe] hover:underline"
+          className="text-accent hover:underline"
           href="https://rnfirebase.io/"
           target="_blank"
           rel="noopener noreferrer"
@@ -207,7 +205,7 @@ function NotificationsButton() {
         </a>{' '}
         and{' '}
         <a
-          className="text-[#6ea8fe] hover:underline"
+          className="text-accent hover:underline"
           href="https://firebase.google.com/docs/cloud-messaging"
           target="_blank"
           rel="noopener noreferrer"

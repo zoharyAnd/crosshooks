@@ -3,42 +3,42 @@ import { CodeBlock, Step } from '../components';
 
 export default function PushNotifications() {
   return (
-    <article className="rounded-[18px] border border-[#263050] bg-[#141a2e] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] sm:p-8">
+    <article className="rounded-[18px] border border-line bg-surface p-6 shadow-[0_20px_60px_rgba(0,0,0,0.10)] sm:p-8">
       <header className="mb-8">
-        <span className="mb-3 inline-block rounded-full border border-[#263050] px-2.5 py-1 text-xs uppercase tracking-[0.08em] text-[#6ea8fe]">
+        <span className="mb-3 inline-block rounded-full border border-line px-2.5 py-1 text-xs uppercase tracking-[0.08em] text-accent">
           Push notifications
         </span>
         <h1 className="mb-3 text-3xl font-bold">Push notifications</h1>
-        <p className="text-sm leading-6 text-[#93a0c4]">
+        <p className="text-sm leading-6 text-muted">
           These steps cover standards-based Web Push, which is built in and
           dependency-free. For native iOS and Android delivery, use a{' '}
-          <a href="#ios-android" className="text-[#6ea8fe] hover:underline">
+          <a href="#ios-android" className="text-accent hover:underline">
             provider
           </a>{' '}
           instead.
         </p>
       </header>
 
-      <section id="ios-android" className="border-t border-[#263050] py-6">
-        <h2 className="mb-3 text-xl font-bold text-[#e8ecf8]">iOS and Android</h2>
-        <div className="space-y-3 text-sm leading-6 text-[#93a0c4]">
+      <section id="ios-android" className="border-t border-line py-6">
+        <h2 className="mb-3 text-xl font-bold text-fg">iOS and Android</h2>
+        <div className="space-y-3 text-sm leading-6 text-muted">
           <p>
             Web Push cannot register with APNs or FCM on its own. For native iOS and
             Android delivery, use a provider adapter and follow its guide:
           </p>
           <ul className="space-y-2">
             <li>
-              <Link href="/provider/firebase" className="text-[#6ea8fe] hover:underline">
+              <Link href="/provider/firebase" className="text-accent hover:underline">
                 Firebase provider
               </Link>
             </li>
             <li>
-              <Link href="/provider/onesignal" className="text-[#6ea8fe] hover:underline">
+              <Link href="/provider/onesignal" className="text-accent hover:underline">
                 OneSignal provider
               </Link>
             </li>
             <li>
-              <Link href="/provider/expo" className="text-[#6ea8fe] hover:underline">
+              <Link href="/provider/expo" className="text-accent hover:underline">
                 Expo provider
               </Link>
             </li>
@@ -165,7 +165,7 @@ function NotificationsButton() {
           privileged push messages. Your backend must send through Web Push using the
           stored subscription and your VAPID key pair.
         </p>
-        <p className="rounded-xl border border-amber-400/30 bg-amber-400/10 p-4 text-amber-200">
+        <p className="rounded-xl border border-warn-border bg-warn-bg p-4 text-warn-text">
           Never expose VAPID private keys in a browser bundle, public repository, or{' '}
           <code className="font-mono">NEXT_PUBLIC_*</code> variable.
         </p>
